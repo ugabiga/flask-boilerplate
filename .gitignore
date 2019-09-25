@@ -132,6 +132,7 @@ dmypy.json
 .idea/modules.xml
 .idea/sonarlint/
 .idea/vcs.xml
+.idea/dataSources.xml
 
 # monkey type
 monkeytype.sqlite3

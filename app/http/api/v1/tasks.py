@@ -16,10 +16,8 @@ def index():
 def create():
     payload = request.get_json()
     create_todo_request = CreateTaskRequest.from_dict(payload)
-    uc = CreateTaskUseCase(
-        request=create_todo_request, task_repository=container.get(TaskRepository)
-    )
-    uc_result = uc.execute()
+    uc = CreateTaskUseCase(task_repository=container.get(TaskRepository))
+    uc_result = uc.execute(request=create_todo_request)
     # TODO : Add response
 
 

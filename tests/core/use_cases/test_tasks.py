@@ -16,10 +16,11 @@ def test_create_task():
     repo = mock.Mock()
     repo.create_task.return_value = expected_task
 
-    uc = CreateTaskUseCase(repo)
-    result = uc.execute(request)
+    result = CreateTaskUseCase(repo, request).execute()
+    assert result
 
-    assert type(result) is Task
-    assert result.user_id is expected_task.user_id
-    assert result.title is expected_task.title
-    assert result.contents is expected_task.contents
+    task = result.get_data()
+    assert type(task) is Task
+    assert task.user_id is expected_task.user_id
+    assert task.title is expected_task.title
+    assert task.contents is expected_task.contents

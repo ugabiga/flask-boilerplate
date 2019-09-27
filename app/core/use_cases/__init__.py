@@ -1,10 +1,9 @@
 from abc import ABC
 from abc import abstractmethod
-
-from app.http.requests.v1.tasks import CreateTaskRequest
+from typing import Any
 
 
 class BaseUseCase(ABC):
     @abstractmethod
-    def execute(self, request: CreateTaskRequest):
+    def execute(self) -> Any:
         raise NotImplementedError()

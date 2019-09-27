@@ -1,5 +1,7 @@
+from flask import jsonify
 from flask import request
 
+from app.core.entities.tasks import Task
 from app.core.repositories.tasks import TaskRepository
 from app.core.use_cases.tasks import CreateTaskUseCase
 from app.extensions.injection import container
@@ -14,11 +16,15 @@ def index():
 
 @api.route("/v1/tasks", methods=["POST"])
 def create():
-    payload = request.get_json()
-    create_todo_request = CreateTaskRequest.from_dict(payload)
-    uc = CreateTaskUseCase(task_repository=container.get(TaskRepository))
-    uc_result = uc.execute(request=create_todo_request)
-    # TODO : Add response
+    create_todo_request = CreateTaskRequest.from_dict(request.get_json())
+    result = CreateTaskUseCase(
+        task_repository=container.get(TaskRepository), request=create_todo_request
+    ).execute()
+
+    if result is False:
+        return result.build_response()
+
+    return jsonify(data=result.get_data()), 200
 
 
 @api.route("/v1/tasks", methods=["PUT"])

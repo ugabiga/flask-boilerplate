@@ -1,6 +1,8 @@
-from voluptuous import All, Required, Schema
+from voluptuous import All
+from voluptuous import Required
+from voluptuous import Schema
 
-from app.http.requests.v1 import BaseRequest
+from app.http.requests import BaseRequest
 
 
 class CreateTaskRequest(BaseRequest):

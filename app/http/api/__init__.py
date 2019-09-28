@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-from .v1.tasks import *  # noqa
+api: Blueprint = Blueprint("api", __name__)
 
-api = Blueprint("api", __name__)
+from .v1.tasks import *  # noqa

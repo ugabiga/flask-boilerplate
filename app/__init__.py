@@ -6,6 +6,8 @@ from flask.app import Flask
 
 from app.config import config
 from app.extensions.database import sql
+from app.http.main import main as main_bp
+from app.http.api import api as api_bp
 
 
 def init_config(app: Flask, config_name: str, settings: Optional[Dict[str, Any]] = None) -> None:
@@ -23,7 +25,8 @@ def init_extensions(app: Flask) -> None:
 
 
 def init_blueprints(app: Flask) -> None:
-    pass
+    app.register_blueprint(main_bp)
+    app.register_blueprint(api_bp)
 
 
 def create_app(config_name: str = "default", settings: Optional[Dict[str, Any]] = None) -> Flask:

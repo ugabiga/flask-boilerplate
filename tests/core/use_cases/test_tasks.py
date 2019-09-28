@@ -24,3 +24,22 @@ def test_create_task():
     assert task.user_id is expected_task.user_id
     assert task.title is expected_task.title
     assert task.contents is expected_task.contents
+
+
+def test_fail_to_create_task():
+    request_task = Task(1, 1, "title", "contents")
+
+    request = CreateTaskRequest(
+        user_id=request_task.user_id,
+        title=request_task.title,
+        contents=request_task.contents,
+    )
+    repo = mock.Mock()
+    repo.create_task.return_value = None
+
+    result = CreateTaskUseCase(repo, request).execute()
+
+    if result:
+        assert False
+
+    assert True

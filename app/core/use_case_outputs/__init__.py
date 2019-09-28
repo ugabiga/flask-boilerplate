@@ -1,8 +1,6 @@
 from abc import ABC
 from typing import Any
 
-from flask import jsonify
-
 
 class UseCaseSuccessOutput(ABC):
     def __bool__(self):
@@ -41,9 +39,6 @@ class UseCaseFailureOutput:
 
     def __bool__(self):
         return False
-
-    def build_response(self):
-        return jsonify(error=self.type, error_description=self.message), self.code
 
     @classmethod
     def build_not_found_error(cls, message=None):

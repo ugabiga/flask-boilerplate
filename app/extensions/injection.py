@@ -1,13 +1,14 @@
+# noinspection PyUnresolvedReferences
 from typing import T
 
 from flask import current_app
+from flask.config import Config
 from werkzeug.local import LocalProxy
 
 from app.core.repositories.tasks import TaskRepository
 from app.data.sql.repositories.tasks import TaskSQLRepository
 
 
-from flask.config import Config
 class DependencyInjectionContainer:
     _injection_dict = {}
 

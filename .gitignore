@@ -136,3 +136,4 @@ dmypy.json
 
 # monkey type
 monkeytype.sqlite3
+.vscode/settings.json

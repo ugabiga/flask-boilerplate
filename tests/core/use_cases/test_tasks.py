@@ -64,7 +64,4 @@ def test_get_all_tasks_with_pagination() -> None:
         assert False
 
     assert result.get_data() == mock_tasks
-    assert result.get_meta() == {
-        "previous_id": mock_tasks[-1].id,
-        "limit": 10
-    }
+    assert result.get_meta() == {"previous_id": mock_tasks[-1].id, "limit": 10}

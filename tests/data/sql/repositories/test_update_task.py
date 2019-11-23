@@ -6,7 +6,7 @@ from app.data.sql.repositories.tasks import TaskSQLRepository
 
 
 def test_update_task(
-        app: Flask, session: scoped_session, repo: TaskSQLRepository
+    app: Flask, session: scoped_session, repo: TaskSQLRepository
 ) -> None:
     task_id = 1
     old_task_title = "title"
@@ -28,7 +28,7 @@ def test_update_task(
 
 
 def test_update_task_empty_dto(
-        app: Flask, session: scoped_session, repo: TaskSQLRepository
+    app: Flask, session: scoped_session, repo: TaskSQLRepository
 ) -> None:
     task_id = 1
     old_task_title = "title"
@@ -46,7 +46,7 @@ def test_update_task_empty_dto(
 
 
 def test_update_task_not_found(
-        app: Flask, session: scoped_session, repo: TaskSQLRepository
+    app: Flask, session: scoped_session, repo: TaskSQLRepository
 ) -> None:
     task_id = 1
     dto = UpdateTaskDto(task_id=task_id)

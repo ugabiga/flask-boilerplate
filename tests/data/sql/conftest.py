@@ -1,9 +1,11 @@
+from flask.app import Flask
 import pytest
 
+from app.core.repositories.tasks import TaskRepository
 from app.data.sql.repositories.tasks import TaskSQLRepository
+from app.extensions.injection import container
 
 
-from flask.app import Flask
 @pytest.fixture(scope="function")
 def repo(app: Flask) -> TaskSQLRepository:
-    return TaskSQLRepository()
+    return container.get(TaskRepository)

@@ -28,7 +28,7 @@ def test_create_task() -> None:
     assert task.contents is expected_task.contents
 
 
-def test_fail_to_create_task() -> None:
+def test_create_task_repository_fail() -> None:
     request_task = Task(1, 1, "title", "contents")
 
     request = CreateTaskRequest(

@@ -20,4 +20,6 @@ class Task(db.Model):
     updated_at = db.Column(db.DateTime, onupdate=func.now())
 
     def to_entity(self) -> TaskEntity:
-        return TaskEntity(id=self.id, user_id=self.id, title=self.id, contents=self.id)
+        return TaskEntity(
+            id=self.id, user_id=self.user_id, title=self.title, contents=self.contents
+        )

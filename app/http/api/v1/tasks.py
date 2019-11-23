@@ -1,7 +1,7 @@
 from flask import request
 
 from app.core.repositories.tasks import TaskRepository
-from app.core.use_cases.tasks import CreateTaskUseCase
+from app.core.use_cases.create_task import CreateTaskUseCase
 from app.extensions.injection import container
 from app.http.api import api
 from app.http.requests.v1.tasks import CreateTaskRequest

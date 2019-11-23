@@ -38,6 +38,7 @@ class UseCaseFailureOutput:
     PARAMETERS_ERROR = "parameters_error"
     SYSTEM_ERROR = "system_error"
     NOT_FOUND_ERROR = "not_found_error"
+    NOT_AUTHORIZED_ERROR = "not_authorized_error"
 
     def __init__(self, type_: str, code: int, message: str) -> None:
         self.type = type_
@@ -50,6 +51,10 @@ class UseCaseFailureOutput:
     @classmethod
     def build_not_found_error(cls, message: Optional[str] = None) -> Any:
         return cls(cls.NOT_FOUND_ERROR, 404, message)
+
+    @classmethod
+    def build_not_authorized_error(cls, message: Optional[str] = None) -> Any:
+        return cls(cls.NOT_AUTHORIZED_ERROR, 409, message)
 
     def _format_message(self, msg: str) -> str:
         if isinstance(msg, Exception):

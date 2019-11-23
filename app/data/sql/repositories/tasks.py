@@ -2,31 +2,22 @@ from typing import List
 from typing import Optional
 
 from app.core.dtos.tasks import UpdateTaskDto
+from app.core.entities.tasks import Task as TaskEntity
 from app.core.repositories.tasks import TaskRepository
 from app.data.sql.models.tasks import Task
 from app.extensions.database import sql_session
 
 
 class TaskSQLRepository(TaskRepository):
-    def read_tasks(self, previous_id: int, limit: int) -> List[Task]:
-        query = sql_session.query(Task)
-
-        if previous_id > 0:
-            query = query.filter(Task.id > previous_id)
-
-        tasks = query.order_by(Task.id).limit(limit).all()
-
-        return [task.to_entity() for task in tasks]
-
-    def create_task(self, user_id: int, title: str, contents: str) -> Task:
+    def create_task(self, user_id: int, title: str, contents: str) -> TaskEntity:
         task = Task(user_id=user_id, title=title, contents=contents)
         sql_session.add(task)
         sql_session.commit()
 
         return task.to_entity()
 
-    def update_task(self, dto: UpdateTaskDto) -> Optional[Task]:
-        task = sql_session.query(Task).filter(Task.id == dto.task_id).one_or_none()
+    def update_task(self, dto: UpdateTaskDto) -> Optional[TaskEntity]:
+        task = self._one_or_none(dto.task_id)
 
         if not task:
             return None
@@ -36,3 +27,25 @@ class TaskSQLRepository(TaskRepository):
         sql_session.commit()
 
         return task.to_entity()
+
+    def read_task(self, task_id) -> Optional[TaskEntity]:
+        task = self._one_or_none(task_id)
+
+        if not task:
+            return None
+
+        return task.to_entity()
+
+    def read_tasks(self, previous_id: int, limit: int) -> List[TaskEntity]:
+        query = sql_session.query(Task)
+
+        if previous_id > 0:
+            query = query.filter(Task.id > previous_id)
+
+        tasks = query.order_by(Task.id).limit(limit).all()
+
+        return [task.to_entity() for task in tasks]
+
+    def _one_or_none(self, task_id) -> Task:
+        task = sql_session.query(Task).filter(Task.id == task_id).one_or_none()
+        return task

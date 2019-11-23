@@ -27,3 +27,14 @@ class GetAllTasksUseCaseSuccessOutput(BaseUseCaseSuccessOutput):
 
     def get_meta(self) -> Dict[str, int]:
         return self.meta
+
+
+class UpdateTaskUseCaseSuccessOutput(BaseUseCaseSuccessOutput):
+    def __init__(self, task: Task) -> None:
+        self.task = task
+
+    def get_data(self) -> Task:
+        return self.task
+
+    def get_meta(self) -> Any:
+        return None

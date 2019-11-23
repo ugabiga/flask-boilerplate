@@ -10,8 +10,11 @@ class TaskRepository(ABC):
     def create_task(self, user_id: int, title: str, contents: str) -> Task:
         raise NotImplementedError()
 
-    def read_tasks(self, previous_id: int, limit: int) -> List[Task]:
+    def update_task(self, dto: UpdateTaskDto) -> Optional[Task]:
         raise NotImplementedError()
 
-    def update_task(self, dto: UpdateTaskDto) -> Optional[Task]:
+    def read_task(self, task_id) -> Optional[Task]:
+        raise NotImplementedError()
+
+    def read_tasks(self, previous_id: int, limit: int) -> List[Task]:
         raise NotImplementedError()

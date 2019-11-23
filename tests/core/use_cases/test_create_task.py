@@ -57,7 +57,7 @@ def test_get_all_tasks_with_pagination() -> None:
 
     request = GetAllTasksRequest()
     repo = mock.Mock()
-    repo.get.return_value = mock_tasks
+    repo.read_tasks.return_value = mock_tasks
 
     result = GetAllTasksUseCase(repo, request).execute()
     if not result:

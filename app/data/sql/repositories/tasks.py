@@ -8,7 +8,7 @@ from app.extensions.database import sql_session
 
 
 class TaskSQLRepository(TaskRepository):
-    def get(self, previous_id: int, limit: int) -> List[Task]:
+    def read_tasks(self, previous_id: int, limit: int) -> List[Task]:
         query = sql_session.query(Task)
 
         if previous_id > 0:

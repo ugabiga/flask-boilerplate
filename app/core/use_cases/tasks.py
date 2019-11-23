@@ -35,7 +35,7 @@ class GetAllTasksUseCase(BaseUseCase):
         self.task_repository = task_repository
 
     def execute(self) -> Union[GetAllTasksUseCaseSuccessOutput, UseCaseFailureOutput]:
-        tasks = self.task_repository.get(
+        tasks = self.task_repository.read_tasks(
             previous_id=self.request.previous_id, limit=self.request.limit
         )
 

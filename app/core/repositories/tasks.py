@@ -8,5 +8,5 @@ class TaskRepository(ABC):
     def create_task(self, user_id: int, title: str, contents: str) -> Task:
         raise NotImplementedError()
 
-    def get(self, previous_id: int, limit: int) -> List[Task]:
+    def read_tasks(self, previous_id: int, limit: int) -> List[Task]:
         raise NotImplementedError()

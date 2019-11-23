@@ -10,11 +10,11 @@ def test_create_task(app: Flask, session: scoped_session, repo: TaskSQLRepositor
     assert type(task) is Task
 
 
-def test_get_task_without_previous_id(app: Flask, session: scoped_session, repo: TaskSQLRepository) -> None:
+def test_read_tasks_without_previous_id(app: Flask, session: scoped_session, repo: TaskSQLRepository) -> None:
     # Create Sample Data
     [repo.create_task(i, f"{i}", f"{i}") for i in range(0, 10)]
 
-    tasks = repo.get(0, 5)
+    tasks = repo.read_tasks(0, 5)
 
     # Assert limit count
     assert len(tasks) == 5

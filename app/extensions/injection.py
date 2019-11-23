@@ -9,14 +9,14 @@ from app.core.repositories.tasks import TaskRepository
 from app.data.sql.repositories.tasks import TaskSQLRepository
 
 
-class DependencyInjectionContainer:
+class IocContainer:
     _injection_dict = {}
 
     def __init__(self, config: Config) -> None:
         self.config = config
         self._set_repository()
 
-    def get(self, cls: T) -> TaskSQLRepository:
+    def get(self, cls: T) -> T:
         return self._injection_dict[cls]()
 
     def _set_repository(self) -> None:
@@ -25,9 +25,9 @@ class DependencyInjectionContainer:
         })
 
 
-def _get_di_container() -> DependencyInjectionContainer:
-    return DependencyInjectionContainer(current_app.config)
+def _get_di_container() -> IocContainer:
+    return IocContainer(current_app.config)
 
 
 # noinspection PyTypeChecker
-container: DependencyInjectionContainer = LocalProxy(_get_di_container)
+container: IocContainer = LocalProxy(_get_di_container)

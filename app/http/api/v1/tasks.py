@@ -16,9 +16,9 @@ def index():
 
 @api.route("/v1/tasks", methods=["POST"])
 def create():
-    create_task_request = CreateTaskRequest.from_dict(request.get_json())
+    task_request = CreateTaskRequest.from_dict(request.get_json())
     output = CreateTaskUseCase(
-        task_repository=container.get(TaskRepository), request=create_task_request
+        task_repository=container.get(TaskRepository), request=task_request
     ).execute()
 
     if output is False:

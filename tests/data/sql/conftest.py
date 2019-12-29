@@ -3,7 +3,7 @@ import pytest
 from sqlalchemy.orm import scoped_session
 
 from app.core.repositories.tasks import TaskRepository
-from app.data.sql.repositories.tasks import TaskSQLRepository
+from app.data.sql.repositories.task import TaskSQLRepository
 from app.extensions.injection import container
 
 

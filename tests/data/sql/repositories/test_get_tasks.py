@@ -1,5 +1,5 @@
 from app.core.entities.tasks import Task
-from app.data.sql.repositories.tasks import TaskSQLRepository
+from app.data.sql.repositories.task import TaskSQLRepository
 
 
 def test_read_tasks_without_previous_id(repo: TaskSQLRepository) -> None:

@@ -1,7 +1,7 @@
 from flask import request
 
 from app.core.repositories.tasks import TaskRepository
-from app.core.use_cases.create_task import CreateTaskUseCase
+from app.core.use_cases.create_tasks import CreateTaskUseCase
 from app.extensions.injection import container
 from app.http.api import api
 from app.http.requests.v1.tasks import CreateTaskRequest
@@ -9,14 +9,15 @@ from app.http.responses import build_failure_response
 from app.http.responses.tasks import build_create_task_success_response
 
 task_repository = container.get(TaskRepository)
+version_prefix = "/v1"
 
 
-@api.route("/v1/tasks")
+@api.route(f"{version_prefix}/tasks")
 def index():
     pass
 
 
-@api.route("/v1/tasks", methods=["POST"])
+@api.route(f"{version_prefix}/tasks", methods=["POST"])
 def create():
     task_request = CreateTaskRequest.from_dict(request.get_json())
     output = CreateTaskUseCase(
@@ -29,11 +30,11 @@ def create():
     return build_create_task_success_response(output)
 
 
-@api.route("/v1/tasks", methods=["PUT"])
+@api.route(f"{version_prefix}/tasks", methods=["PUT"])
 def update():
     pass
 
 
-@api.route("/v1/tasks", methods=["DELETE"])
+@api.route(f"{version_prefix}/tasks", methods=["DELETE"])
 def delete():
     pass

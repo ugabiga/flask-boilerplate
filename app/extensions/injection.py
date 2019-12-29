@@ -6,7 +6,7 @@ from flask.config import Config
 from werkzeug.local import LocalProxy
 
 from app.core.repositories.tasks import TaskRepository
-from app.data.sql.repositories.tasks import TaskSQLRepository
+from app.data.sql.repositories.task import TaskSQLRepository
 
 
 class IocContainer:

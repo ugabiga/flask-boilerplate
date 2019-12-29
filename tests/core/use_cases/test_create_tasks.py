@@ -2,7 +2,7 @@ from unittest import mock
 
 from app.core.dtos.tasks import CreateTaskDto
 from app.core.entities.tasks import Task
-from app.core.use_cases.create_task import CreateTaskUseCase
+from app.core.use_cases.create_tasks import CreateTaskUseCase
 
 
 def test_create_task() -> None:

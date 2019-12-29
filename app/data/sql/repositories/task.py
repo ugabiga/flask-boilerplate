@@ -4,7 +4,7 @@ from typing import Optional
 from app.core.dtos.tasks import UpdateTaskDto
 from app.core.entities.tasks import Task as TaskEntity
 from app.core.repositories.tasks import TaskRepository
-from app.data.sql.models.tasks import Task
+from app.data.sql.models.task import Task
 from app.extensions.database import sql_session
 
 

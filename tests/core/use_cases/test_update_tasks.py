@@ -3,7 +3,7 @@ from unittest import mock
 from app.core.entities.tasks import Task
 from app.core.use_case_outputs import UseCaseFailureOutput
 from app.core.use_case_outputs.tasks import UpdateTaskUseCaseOutput
-from app.core.use_cases.update_task import UpdateTaskUseCase
+from app.core.use_cases.update_tasks import UpdateTaskUseCase
 from app.http.requests.v1.tasks import UpdateTaskRequest
 
 

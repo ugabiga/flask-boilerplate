@@ -1,5 +1,8 @@
 from abc import ABC
 
+from app.core.entities.users import User
+
 
 class UserRepository(ABC):
-    pass
+    def create_user(self, nickname) -> User:
+        raise NotImplementedError()

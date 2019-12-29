@@ -8,7 +8,6 @@ from app.http.requests.v1.tasks import CreateTaskRequest
 from app.http.responses import build_failure_response
 from app.http.responses.tasks import build_create_task_success_response
 
-task_repository = container.get(TaskRepository)
 version_prefix = "/v1"
 
 
@@ -21,7 +20,7 @@ def index():
 def create():
     task_request = CreateTaskRequest.from_dict(request.get_json())
     output = CreateTaskUseCase(
-        task_repository=task_repository, dto=task_request.to_dto()
+        task_repository=container.get(TaskRepository), dto=task_request.to_dto()
     ).execute()
 
     if output is False:

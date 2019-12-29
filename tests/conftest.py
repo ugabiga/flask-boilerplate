@@ -1,12 +1,13 @@
-import pytest
 import os
-from app import create_app
-from app.extensions.database import sql as _db
 
 from _pytest.fixtures import SubRequest
 from flask.app import Flask
 from flask_sqlalchemy import SQLAlchemy
+import pytest
 from sqlalchemy.orm.scoping import scoped_session
+
+from app import create_app
+from app.extensions.database import sql as _db
 
 TEST_DB = "tests.db"
 TEST_DB_PATH = f"{os.path.dirname(os.path.dirname(__file__))}/{TEST_DB}"

@@ -18,3 +18,6 @@ class TaskRepository(ABC):
 
     def get_tasks(self, previous_id: int, limit: int) -> List[Task]:
         raise NotImplementedError()
+
+    def delete_all_tasks(self) -> bool:
+        raise NotImplementedError()

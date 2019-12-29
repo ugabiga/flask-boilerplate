@@ -46,9 +46,11 @@ class TaskSQLRepository(TaskRepository):
 
         return [task.to_entity() for task in tasks]
 
-    def delete_all_tasks(self):
+    def delete_all_tasks(self) -> bool:
         sql_session.query(Task).delete()
         sql_session.commit()
+
+        return True
 
     def _one_or_none(self, task_id: int) -> Task:
         task = sql_session.query(Task).filter(Task.id == task_id).one_or_none()

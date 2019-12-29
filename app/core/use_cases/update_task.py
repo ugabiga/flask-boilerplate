@@ -13,7 +13,7 @@ from app.http.requests.v1.tasks import UpdateTaskRequest
 
 class UpdateTaskUseCase(BaseUseCase):
     def __init__(
-            self, task_repository: TaskRepository, user_id: int, request: UpdateTaskRequest
+        self, task_repository: TaskRepository, user_id: int, request: UpdateTaskRequest
     ) -> None:
         self.user_id = user_id
         self.request = request
@@ -27,7 +27,9 @@ class UpdateTaskUseCase(BaseUseCase):
         except NotFoundException:
             return UseCaseFailureOutput.build_not_found_error("task_not_found")
         except NotAuthorizedException:
-            return UseCaseFailureOutput.build_not_authorized_error("not_authorized_action")
+            return UseCaseFailureOutput.build_not_authorized_error(
+                "not_authorized_action"
+            )
 
         try:
             new_task = self._update_task(dto)

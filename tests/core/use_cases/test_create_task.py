@@ -1,8 +1,9 @@
 from unittest import mock
 
+from app.core.dtos.tasks import CreateTaskDto
 from app.core.entities.tasks import Task
 from app.core.use_cases.create_task import CreateTaskUseCase
-from app.core.use_cases.read_task import ReadTasksUseCase
+from app.core.use_cases.get_task import GetTasksUseCase
 from app.http.requests.v1.tasks import CreateTaskRequest
 from app.http.requests.v1.tasks import GetAllTasksRequest
 
@@ -10,15 +11,16 @@ from app.http.requests.v1.tasks import GetAllTasksRequest
 def test_create_task() -> None:
     expected_task = Task(1, 1, "title", "contents")
 
-    request = CreateTaskRequest(
+    dto = CreateTaskDto(
         user_id=expected_task.user_id,
         title=expected_task.title,
         contents=expected_task.contents,
     )
+
     repo = mock.Mock()
     repo.create_task.return_value = expected_task
 
-    result = CreateTaskUseCase(repo, request).execute()
+    result = CreateTaskUseCase(repo, dto).execute()
     assert result
 
     task = result.get_data()
@@ -31,7 +33,7 @@ def test_create_task() -> None:
 def test_create_task_repository_fail() -> None:
     request_task = Task(1, 1, "title", "contents")
 
-    request = CreateTaskRequest(
+    dto = CreateTaskDto(
         user_id=request_task.user_id,
         title=request_task.title,
         contents=request_task.contents,
@@ -39,29 +41,9 @@ def test_create_task_repository_fail() -> None:
     repo = mock.Mock()
     repo.create_task.return_value = None
 
-    result = CreateTaskUseCase(repo, request).execute()
+    result = CreateTaskUseCase(repo, dto).execute()
 
     if result:
         assert False
 
     assert True
-
-
-def test_get_all_tasks_with_pagination() -> None:
-    mock_tasks = [
-        Task(1, 1, "1", "contents"),
-        Task(2, 2, "2", "contents"),
-        Task(3, 3, "3", "contents"),
-        Task(4, 4, "4", "contents"),
-    ]
-
-    request = GetAllTasksRequest()
-    repo = mock.Mock()
-    repo.read_tasks.return_value = mock_tasks
-
-    result = ReadTasksUseCase(repo, request).execute()
-    if not result:
-        assert False
-
-    assert result.get_data() == mock_tasks
-    assert result.get_meta() == {"previous_id": mock_tasks[-1].id, "limit": 10}

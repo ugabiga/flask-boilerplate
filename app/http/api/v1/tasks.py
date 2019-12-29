@@ -18,7 +18,7 @@ def index():
 def create():
     task_request = CreateTaskRequest.from_dict(request.get_json())
     output = CreateTaskUseCase(
-        task_repository=container.get(TaskRepository), request=task_request
+        task_repository=container.get(TaskRepository), dto=task_request.to_dto()
     ).execute()
 
     if output is False:
@@ -28,7 +28,7 @@ def create():
 
 
 @api.route("/v1/tasks", methods=["PUT"])
-def edit():
+def update():
     pass
 
 

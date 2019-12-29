@@ -2,6 +2,7 @@ from typing import Optional
 
 import voluptuous as v
 
+from app.core.dtos.tasks import CreateTaskDto
 from app.core.dtos.tasks import UpdateTaskDto
 from app.http.requests import BaseRequest
 
@@ -20,6 +21,11 @@ class CreateTaskRequest(BaseRequest):
                 v.Required("title"): v.All(str),
                 v.Required("contents"): v.All(str),
             }
+        )
+
+    def to_dto(self) -> CreateTaskDto:
+        return CreateTaskDto(
+            user_id=self.user_id, title=self.title, contents=self.contents
         )
 
 
@@ -44,11 +50,7 @@ class UpdateTaskRequest(BaseRequest):
         self.contents = contents
 
     def to_dto(self) -> UpdateTaskDto:
-        return UpdateTaskDto(
-            self.task_id,
-            self.title,
-            self.contents,
-        )
+        return UpdateTaskDto(self.task_id, self.title, self.contents)
 
     @classmethod
     def _get_validation_schema(cls) -> v.Schema:

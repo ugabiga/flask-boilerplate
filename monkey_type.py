@@ -23,9 +23,7 @@ def apply_monkey_type():
 
         print(f"processing == {string_line}")
         command = "monkeytype apply " + string_line
-        subprocess.call(
-            command, shell=True, stdout=stdout, stderr=stderr
-        )
+        subprocess.call(command, shell=True, stdout=stdout, stderr=stderr)
 
 
 def main():

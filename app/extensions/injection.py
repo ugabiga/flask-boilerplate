@@ -20,9 +20,7 @@ class IocContainer:
         return self._injection_dict[cls]()
 
     def _set_repository(self) -> None:
-        self._injection_dict.update({
-            TaskRepository: TaskSQLRepository
-        })
+        self._injection_dict.update({TaskRepository: TaskSQLRepository})
 
 
 def _get_di_container() -> IocContainer:

@@ -36,7 +36,7 @@ class TaskSQLRepository(TaskRepository):
 
         return task.to_entity()
 
-    def read_tasks(self, previous_id: int, limit: int) -> List[TaskEntity]:
+    def get_tasks(self, previous_id: int, limit: int) -> List[TaskEntity]:
         query = sql_session.query(Task)
 
         if previous_id > 0:

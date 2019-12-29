@@ -7,6 +7,7 @@ from _pytest.fixtures import SubRequest
 from flask.app import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm.scoping import scoped_session
+
 TEST_DB = "tests.db"
 TEST_DB_PATH = f"{os.path.dirname(os.path.dirname(__file__))}/{TEST_DB}"
 TEST_DATABASE_URI = "sqlite:///" + TEST_DB_PATH

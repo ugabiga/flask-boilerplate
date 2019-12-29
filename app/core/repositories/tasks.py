@@ -16,5 +16,5 @@ class TaskRepository(ABC):
     def read_task(self, task_id) -> Optional[Task]:
         raise NotImplementedError()
 
-    def read_tasks(self, previous_id: int, limit: int) -> List[Task]:
+    def get_tasks(self, previous_id: int, limit: int) -> List[Task]:
         raise NotImplementedError()

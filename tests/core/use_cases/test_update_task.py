@@ -15,9 +15,7 @@ def test_update_task() -> None:
     expected_task = Task(task_id, user_id, title, contents)
 
     req = UpdateTaskRequest(
-        expected_task.id,
-        expected_task.title,
-        expected_task.contents,
+        expected_task.id, expected_task.title, expected_task.contents
     )
 
     repo = mock.Mock()

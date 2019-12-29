@@ -14,3 +14,10 @@ class CreateTaskDto:
     user_id: int
     title: str
     contents: str
+
+
+@dataclass
+class GetUserTasksDto:
+    user_id: int
+    previous_id: int = 0
+    limit: int = 10

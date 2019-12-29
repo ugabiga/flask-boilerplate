@@ -1,8 +1,8 @@
 from unittest import mock
 
+from app.core.dtos.tasks import GetUserTasksDto
 from app.core.entities.tasks import Task
-from app.core.use_cases.get_task import GetTasksUseCase
-from app.http.requests.v1.tasks import GetAllTasksRequest
+from app.core.use_cases.get_task import GetUserTasksUseCase
 
 
 def test_get_all_tasks_with_pagination() -> None:
@@ -13,11 +13,11 @@ def test_get_all_tasks_with_pagination() -> None:
         Task(4, 4, "4", "contents"),
     ]
 
-    request = GetAllTasksRequest()
+    dto = GetUserTasksDto(1)
     repo = mock.Mock()
     repo.get_tasks.return_value = mock_tasks
 
-    result = GetTasksUseCase(repo, request).execute()
+    result = GetUserTasksUseCase(repo, dto).execute()
     if not result:
         assert False
 

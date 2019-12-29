@@ -3,9 +3,6 @@ from unittest import mock
 from app.core.dtos.tasks import CreateTaskDto
 from app.core.entities.tasks import Task
 from app.core.use_cases.create_task import CreateTaskUseCase
-from app.core.use_cases.get_task import GetTasksUseCase
-from app.http.requests.v1.tasks import CreateTaskRequest
-from app.http.requests.v1.tasks import GetAllTasksRequest
 
 
 def test_create_task() -> None:

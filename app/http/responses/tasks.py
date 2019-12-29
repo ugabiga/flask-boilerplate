@@ -1,4 +1,4 @@
-from app.core.use_case_outputs.tasks import CreateTaskUseCaseSuccessOutput
+from app.core.use_case_outputs.tasks import CreateTaskUseCaseOutput
 from app.extensions.marshmallow import ma
 
 
@@ -7,6 +7,6 @@ class TaskSchema(ma.Schema):
         fields = ("id", "user_id", "title", "contents")
 
 
-def build_create_task_success_response(use_case_output: CreateTaskUseCaseSuccessOutput):
+def build_create_task_success_response(use_case_output: CreateTaskUseCaseOutput):
     task = use_case_output.get_data()
     return TaskSchema.dump(task)

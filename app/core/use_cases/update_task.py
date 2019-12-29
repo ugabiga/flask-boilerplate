@@ -6,7 +6,7 @@ from app.core.exceptions import NotAuthorizedException
 from app.core.exceptions import NotFoundException
 from app.core.repositories.tasks import TaskRepository
 from app.core.use_case_outputs import UseCaseFailureOutput
-from app.core.use_case_outputs.tasks import UpdateTaskUseCaseSuccessOutput
+from app.core.use_case_outputs.tasks import UpdateTaskUseCaseOutput
 from app.core.use_cases import BaseUseCase
 from app.http.requests.v1.tasks import UpdateTaskRequest
 
@@ -19,7 +19,7 @@ class UpdateTaskUseCase(BaseUseCase):
         self.request = request
         self.task_repository = task_repository
 
-    def execute(self) -> Union[UpdateTaskUseCaseSuccessOutput, UseCaseFailureOutput]:
+    def execute(self) -> Union[UpdateTaskUseCaseOutput, UseCaseFailureOutput]:
         dto = self.request.to_dto()
 
         try:
@@ -36,7 +36,7 @@ class UpdateTaskUseCase(BaseUseCase):
         except NotFoundException:
             return UseCaseFailureOutput.build_not_found_error("task_not_found")
 
-        return UpdateTaskUseCaseSuccessOutput(new_task)
+        return UpdateTaskUseCaseOutput(new_task)
 
     def _check_task_authorization(self, dto: UpdateTaskDto) -> bool:
         task = self.task_repository.read_task(dto.task_id)

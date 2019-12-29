@@ -6,7 +6,7 @@ from app.core.entities.tasks import Task
 from app.core.use_case_outputs import BaseUseCaseSuccessOutput
 
 
-class CreateTaskUseCaseSuccessOutput(BaseUseCaseSuccessOutput):
+class CreateTaskUseCaseOutput(BaseUseCaseSuccessOutput):
     def __init__(self, task: Task) -> None:
         self.task = task
 
@@ -17,7 +17,7 @@ class CreateTaskUseCaseSuccessOutput(BaseUseCaseSuccessOutput):
         return None
 
 
-class GetAllTasksUseCaseSuccessOutput(BaseUseCaseSuccessOutput):
+class GetUserTasksUseCaseOutput(BaseUseCaseSuccessOutput):
     def __init__(self, tasks: List[Task], meta: Dict[str, int]) -> None:
         self.meta = meta
         self.tasks = tasks
@@ -29,7 +29,7 @@ class GetAllTasksUseCaseSuccessOutput(BaseUseCaseSuccessOutput):
         return self.meta
 
 
-class UpdateTaskUseCaseSuccessOutput(BaseUseCaseSuccessOutput):
+class UpdateTaskUseCaseOutput(BaseUseCaseSuccessOutput):
     def __init__(self, task: Task) -> None:
         self.task = task
 

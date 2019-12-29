@@ -3,6 +3,7 @@ from typing import Optional
 import voluptuous as v
 
 from app.core.dtos.tasks import CreateTaskDto
+from app.core.dtos.tasks import GetUserTasksDto
 from app.core.dtos.tasks import UpdateTaskDto
 from app.http.requests import BaseRequest
 
@@ -29,7 +30,7 @@ class CreateTaskRequest(BaseRequest):
         )
 
 
-class GetAllTasksRequest(BaseRequest):
+class GetUerTasksRequest(BaseRequest):
     def __init__(self, previous_id: int = 0, limit: int = 10) -> None:
         self.limit = limit
         self.previous_id = previous_id
@@ -38,6 +39,12 @@ class GetAllTasksRequest(BaseRequest):
     def _get_validation_schema(cls) -> v.Schema:
         return v.Schema(
             {v.Optional("previous_id"): v.All(int), v.Optional("limit"): v.All(int)}
+        )
+
+    def to_dto(self) -> GetUserTasksDto:
+        # TODO : Add authentication and refactor hard coded value
+        return GetUserTasksDto(
+            user_id=1, previous_id=self.previous_id, limit=self.limit
         )
 
 
@@ -49,9 +56,6 @@ class UpdateTaskRequest(BaseRequest):
         self.title = title
         self.contents = contents
 
-    def to_dto(self) -> UpdateTaskDto:
-        return UpdateTaskDto(self.task_id, self.title, self.contents)
-
     @classmethod
     def _get_validation_schema(cls) -> v.Schema:
         return v.Schema(
@@ -61,3 +65,6 @@ class UpdateTaskRequest(BaseRequest):
                 v.Optional("contents"): v.All(str),
             }
         )
+
+    def to_dto(self) -> UpdateTaskDto:
+        return UpdateTaskDto(self.task_id, self.title, self.contents)

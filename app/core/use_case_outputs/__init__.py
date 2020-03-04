@@ -3,6 +3,46 @@ from typing import Any
 from typing import Optional
 
 
+class UseCaseOutput(ABC):
+    def __bool__(self):
+        raise NotImplementedError()
+
+    def is_success(self) -> bool:
+        raise NotImplementedError()
+
+    def get_data(self) -> Any:
+        raise NotImplementedError()
+
+    def get_meta(self) -> Any:
+        raise NotImplementedError()
+
+
+class BaseUseCaseOutput(UseCaseOutput):
+    def __init__(self):
+        self._is_success = True
+
+    def __bool__(self):
+        return self.is_success()
+
+    def is_success(self) -> bool:
+        return self._is_success
+
+    def set_is_success(self, is_success) -> Any:
+        self._is_success = is_success
+        return self
+
+    def get_data(self) -> Any:
+        raise NotImplementedError()
+
+    def get_meta(self) -> Any:
+        raise NotImplementedError()
+
+    @classmethod
+    def build_not_found_error(cls, message: Optional[str] = None) -> Any:
+        instance = cls().set_is_success(False)
+        return instance
+
+
 class UseCaseSuccessOutput(ABC):
     def __bool__(self):
         raise NotImplementedError()

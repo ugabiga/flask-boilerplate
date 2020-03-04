@@ -1,4 +1,4 @@
-from app.core.use_case_outputs.tasks import CreateTaskUseCaseOutput
+from app.core.use_cases.create_tasks import CreateTaskUseCaseOutput
 from app.extensions.marshmallow import ma
 
 

@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Union
 
 from app.core.dtos.tasks import UpdateTaskDto
@@ -5,10 +6,21 @@ from app.core.entities.tasks import Task
 from app.core.exceptions import NotAuthorizedException
 from app.core.exceptions import NotFoundException
 from app.core.repositories.tasks import TaskRepository
+from app.core.use_case_outputs import BaseUseCaseSuccessOutput
 from app.core.use_case_outputs import UseCaseFailureOutput
-from app.core.use_case_outputs.tasks import UpdateTaskUseCaseOutput
 from app.core.use_cases import BaseUseCase
 from app.http.requests.v1.tasks import UpdateTaskRequest
+
+
+class UpdateTaskUseCaseOutput(BaseUseCaseSuccessOutput):
+    def __init__(self, task: Task) -> None:
+        self.task = task
+
+    def get_data(self) -> Task:
+        return self.task
+
+    def get_meta(self) -> Any:
+        return None
 
 
 class UpdateTaskUseCase(BaseUseCase):

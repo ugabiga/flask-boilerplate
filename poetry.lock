@@ -8,7 +8,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "1.3.0"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Classes Without Boilerplate"
 name = "attrs"
 optional = false
@@ -51,6 +51,21 @@ toml = ["toml"]
 
 [[package]]
 category = "main"
+description = "Extract swagger specs from your flask project"
+name = "flasgger"
+optional = false
+python-versions = "*"
+version = "0.9.4"
+
+[package.dependencies]
+Flask = ">=0.10"
+PyYAML = ">=3.0"
+jsonschema = ">=3.0.1"
+mistune = "*"
+six = ">=1.10.0"
+
+[[package]]
+category = "main"
 description = "A simple framework for building complex web applications."
 name = "flask"
 optional = false
@@ -70,25 +85,6 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 category = "main"
-description = "Flask + marshmallow for beautiful APIs"
-name = "flask-marshmallow"
-optional = false
-python-versions = "*"
-version = "0.10.1"
-
-[package.dependencies]
-Flask = "*"
-marshmallow = ">=2.0.0"
-six = ">=1.9.0"
-
-[package.extras]
-dev = ["flask-sqlalchemy", "marshmallow-sqlalchemy (>=0.13.0)", "pytest", "mock", "flake8 (3.7.7)", "pre-commit (1.16.0)", "tox", "flake8-bugbear (19.3.0)"]
-lint = ["flake8 (3.7.7)", "pre-commit (1.16.0)", "flake8-bugbear (19.3.0)"]
-sqlalchemy = ["flask-sqlalchemy", "marshmallow-sqlalchemy (>=0.13.0)"]
-tests = ["flask-sqlalchemy", "marshmallow-sqlalchemy (>=0.13.0)", "pytest", "mock"]
-
-[[package]]
-category = "main"
 description = "Adds SQLAlchemy support to your Flask application."
 name = "flask-sqlalchemy"
 optional = false
@@ -98,18 +94,6 @@ version = "2.4.1"
 [package.dependencies]
 Flask = ">=0.10"
 SQLAlchemy = ">=0.8.0"
-
-[[package]]
-category = "main"
-description = "Extract swagger specs from your flask project"
-name = "flask-swagger"
-optional = false
-python-versions = "*"
-version = "0.2.14"
-
-[package.dependencies]
-Flask = ">=0.10"
-PyYAML = ">=5.1"
 
 [[package]]
 category = "main"
@@ -125,7 +109,7 @@ gevent = ["gevent (>=0.13)"]
 tornado = ["tornado (>=0.2)"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Read metadata from Python packages"
 marker = "python_version < \"3.8\""
 name = "importlib-metadata"
@@ -178,6 +162,28 @@ i18n = ["Babel (>=0.8)"]
 
 [[package]]
 category = "main"
+description = "An implementation of JSON Schema validation for Python"
+name = "jsonschema"
+optional = false
+python-versions = "*"
+version = "3.2.0"
+
+[package.dependencies]
+attrs = ">=17.4.0"
+pyrsistent = ">=0.14.0"
+setuptools = "*"
+six = ">=1.11.0"
+
+[package.dependencies.importlib-metadata]
+python = "<3.8"
+version = "*"
+
+[package.extras]
+format = ["idna", "jsonpointer (>1.13)", "rfc3987", "strict-rfc3339", "webcolors"]
+format_nongpl = ["idna", "jsonpointer (>1.13)", "webcolors", "rfc3986-validator (>0.1.0)", "rfc3339-validator"]
+
+[[package]]
+category = "main"
 description = "Safely add untrusted strings to HTML/XML markup."
 name = "markupsafe"
 optional = false
@@ -190,13 +196,21 @@ description = "A lightweight library for converting complex datatypes to and fro
 name = "marshmallow"
 optional = false
 python-versions = ">=3.5"
-version = "3.2.0"
+version = "3.5.0"
 
 [package.extras]
-dev = ["pytest", "pytz", "simplejson", "mypy (0.720)", "flake8 (3.7.8)", "flake8-bugbear (19.8.0)", "pre-commit (>=1.17,<2.0)", "tox"]
-docs = ["sphinx (2.2.0)", "sphinx-issues (1.2.0)", "alabaster (0.7.12)", "sphinx-version-warning (1.1.2)"]
-lint = ["mypy (0.720)", "flake8 (3.7.8)", "flake8-bugbear (19.8.0)", "pre-commit (>=1.17,<2.0)"]
+dev = ["pytest", "pytz", "simplejson", "mypy (0.761)", "flake8 (3.7.9)", "flake8-bugbear (20.1.4)", "pre-commit (>=1.20,<3.0)", "tox"]
+docs = ["sphinx (2.4.2)", "sphinx-issues (1.2.0)", "alabaster (0.7.12)", "sphinx-version-warning (1.1.2)"]
+lint = ["mypy (0.761)", "flake8 (3.7.9)", "flake8-bugbear (20.1.4)", "pre-commit (>=1.20,<3.0)"]
 tests = ["pytest", "pytz", "simplejson"]
+
+[[package]]
+category = "main"
+description = "The fastest markdown parser in pure Python"
+name = "mistune"
+optional = false
+python-versions = "*"
+version = "0.8.4"
 
 [[package]]
 category = "main"
@@ -268,6 +282,17 @@ name = "pyparsing"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 version = "2.4.6"
+
+[[package]]
+category = "main"
+description = "Persistent/Functional/Immutable data structures"
+name = "pyrsistent"
+optional = false
+python-versions = "*"
+version = "0.15.7"
+
+[package.dependencies]
+six = "*"
 
 [[package]]
 category = "dev"
@@ -400,7 +425,7 @@ termcolor = ["termcolor"]
 watchdog = ["watchdog"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Backport of pathlib-compatible object wrapper for zip files"
 marker = "python_version < \"3.8\""
 name = "zipp"
@@ -413,7 +438,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "0dc75ee9df3a65bc570063055b6980d3a769ecc78f2d46df8194dee2ff8acee5"
+content-hash = "ec809201bc4963fe2dfafe3a73621d72014a3e292dd88d276cb5880b873a9982"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -466,21 +491,17 @@ coverage = [
     {file = "coverage-5.0.3-cp39-cp39m-win_amd64.whl", hash = "sha256:da93027835164b8223e8e5af2cf902a4c80ed93cb0909417234f4a9df3bcd9af"},
     {file = "coverage-5.0.3.tar.gz", hash = "sha256:77afca04240c40450c331fa796b3eab6f1e15c5ecf8bf2b8bee9706cd5452fef"},
 ]
+flasgger = [
+    {file = "flasgger-0.9.4-py2.py3-none-any.whl", hash = "sha256:7c187f7a7caeb42645f7de652335b794375925467407e40322620fb9d401b38c"},
+    {file = "flasgger-0.9.4.tar.gz", hash = "sha256:37137b3292738580c42e03662bfb8731656a11d636e76f76d30e572c1fa5bd0d"},
+]
 flask = [
     {file = "Flask-1.1.1-py2.py3-none-any.whl", hash = "sha256:45eb5a6fd193d6cf7e0cf5d8a5b31f83d5faae0293695626f539a823e93b13f6"},
     {file = "Flask-1.1.1.tar.gz", hash = "sha256:13f9f196f330c7c2c5d7a5cf91af894110ca0215ac051b5844701f2bfd934d52"},
 ]
-flask-marshmallow = [
-    {file = "flask-marshmallow-0.10.1.tar.gz", hash = "sha256:69e99e3a123393894884a032ae2d11e6bdf4519a505819b66cec7eda32057741"},
-    {file = "flask_marshmallow-0.10.1-py2.py3-none-any.whl", hash = "sha256:4f507f883838b397638a3a36c7d36ee146b255a49db952f5d9de3f6f4522e8a8"},
-]
 flask-sqlalchemy = [
     {file = "Flask-SQLAlchemy-2.4.1.tar.gz", hash = "sha256:6974785d913666587949f7c2946f7001e4fa2cb2d19f4e69ead02e4b8f50b33d"},
     {file = "Flask_SQLAlchemy-2.4.1-py2.py3-none-any.whl", hash = "sha256:0078d8663330dc05a74bc72b3b6ddc441b9a744e2f56fe60af1a5bfc81334327"},
-]
-flask-swagger = [
-    {file = "flask-swagger-0.2.14.tar.gz", hash = "sha256:b4085f5bc36df4c20b6548cd1413adc9cf35719b0f0695367cd542065145294d"},
-    {file = "flask_swagger-0.2.14-py2-none-any.whl", hash = "sha256:3caddb1311388eafc86f82f8e64ba386a5df6b84e5f16dfae19ca08173eba216"},
 ]
 gunicorn = [
     {file = "gunicorn-19.9.0-py2.py3-none-any.whl", hash = "sha256:aa8e0b40b4157b36a5df5e599f45c9c76d6af43845ba3b3b0efe2c70473c2471"},
@@ -501,6 +522,10 @@ itsdangerous = [
 jinja2 = [
     {file = "Jinja2-2.10.1-py2.py3-none-any.whl", hash = "sha256:14dd6caf1527abb21f08f86c784eac40853ba93edb79552aa1e4b8aef1b61c7b"},
     {file = "Jinja2-2.10.1.tar.gz", hash = "sha256:065c4f02ebe7f7cf559e49ee5a95fb800a9e4528727aec6f24402a5374c65013"},
+]
+jsonschema = [
+    {file = "jsonschema-3.2.0-py2.py3-none-any.whl", hash = "sha256:4e5b3cf8216f577bee9ce139cbe72eca3ea4f292ec60928ff24758ce626cd163"},
+    {file = "jsonschema-3.2.0.tar.gz", hash = "sha256:c8a85b28d377cc7737e46e2d9f2b4f44ee3c0e1deac6bf46ddefc7187d30797a"},
 ]
 markupsafe = [
     {file = "MarkupSafe-1.1.1-cp27-cp27m-macosx_10_6_intel.whl", hash = "sha256:09027a7803a62ca78792ad89403b1b7a73a01c8cb65909cd876f7fcebd79b161"},
@@ -538,8 +563,12 @@ markupsafe = [
     {file = "MarkupSafe-1.1.1.tar.gz", hash = "sha256:29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b"},
 ]
 marshmallow = [
-    {file = "marshmallow-3.2.0-py2.py3-none-any.whl", hash = "sha256:801a7c70f0596b812a086773b9d7ba85b4bbad1becab14cde460ab7798511409"},
-    {file = "marshmallow-3.2.0.tar.gz", hash = "sha256:6dca0125320c15795c4f2dfe8f2f5c37a96916e7a09a123eba05ef24d3126b94"},
+    {file = "marshmallow-3.5.0-py2.py3-none-any.whl", hash = "sha256:4b95c7735f93eb781dfdc4dded028108998cad759dda8dd9d4b5b4ac574cbf13"},
+    {file = "marshmallow-3.5.0.tar.gz", hash = "sha256:3a94945a7461f2ab4df9576e51c97d66bee2c86155d3d3933fab752b31effab8"},
+]
+mistune = [
+    {file = "mistune-0.8.4-py2.py3-none-any.whl", hash = "sha256:88a1051873018da288eee8538d476dffe1262495144b33ecb586c4ab266bb8d4"},
+    {file = "mistune-0.8.4.tar.gz", hash = "sha256:59a3429db53c50b5c6bcc8a07f8848cb00d7dc8bdb431a4ab41920d201d4756e"},
 ]
 monkeytype = [
     {file = "MonkeyType-19.5.0-py3-none-any.whl", hash = "sha256:adb86d4dd4760e80e9670179ab09b09b4e3765115e31f9f2840c1ef3ebc91167"},
@@ -567,6 +596,9 @@ py = [
 pyparsing = [
     {file = "pyparsing-2.4.6-py2.py3-none-any.whl", hash = "sha256:c342dccb5250c08d45fd6f8b4a559613ca603b57498511740e65cd11a2e7dcec"},
     {file = "pyparsing-2.4.6.tar.gz", hash = "sha256:4c830582a84fb022400b85429791bc551f1f4871c33f23e44f353119e92f969f"},
+]
+pyrsistent = [
+    {file = "pyrsistent-0.15.7.tar.gz", hash = "sha256:cdc7b5e3ed77bed61270a47d35434a30617b9becdf2478af76ad2c6ade307280"},
 ]
 pytest = [
     {file = "pytest-5.3.5-py3-none-any.whl", hash = "sha256:ff615c761e25eb25df19edddc0b970302d2a9091fbce0e7213298d85fb61fef6"},

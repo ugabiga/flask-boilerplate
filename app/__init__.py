@@ -2,12 +2,14 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
+from flasgger import Swagger
 from flask.app import Flask
 
 from app.config import config
 from app.extensions.database import sql
-from app.http.main import main as main_bp
+from app.extensions.swagger import get_swagger_config
 from app.http.api import api as api_bp
+from app.http.main import main as main_bp
 
 
 def init_config(
@@ -24,6 +26,8 @@ def init_config(
 def init_extensions(app: Flask) -> None:
     if app.config["REPO_ENGINE"] == "MYSQL":
         sql.init_app(app)
+
+    Swagger(app, **get_swagger_config(app))
 
 
 def init_blueprints(app: Flask) -> None:

@@ -1,3 +1,4 @@
+from flasgger import swag_from
 from flask import request
 
 from app.core.repositories.tasks import TaskRepository
@@ -11,6 +12,7 @@ from app.http.responses.tasks import build_create_task_success_response
 version_prefix = "/v1"
 
 
+@swag_from("./task_index.yml")
 @api.route(f"{version_prefix}/tasks")
 def index():
     pass

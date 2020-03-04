@@ -7,6 +7,7 @@ class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY") or "hard to guess string"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_RECORD_QUERIES = True
+    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
     REPO_ENGINE = "MYSQL"
 
     @staticmethod
@@ -21,8 +22,8 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = (
-        os.environ.get("TEST_DATABASE_URL")
-        or f"sqlite:///{os.path.abspath(os.path.dirname(os.path.dirname(__file__)))}/test.db"
+            os.environ.get("TEST_DATABASE_URL")
+            or f"sqlite:///{os.path.abspath(os.path.dirname(os.path.dirname(__file__)))}/test.db"
     )
     WTF_CSRF_ENABLED = False
 

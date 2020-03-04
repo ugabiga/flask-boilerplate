@@ -1,5 +1,5 @@
 from app.core.use_cases.create_tasks import CreateTaskUseCaseOutput
-from app.extensions.marshmallow import ma
+import marshmallow as ma
 
 
 class TaskSchema(ma.Schema):

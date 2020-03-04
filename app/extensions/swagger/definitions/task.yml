@@ -1,0 +1,19 @@
+Task:
+  type: object
+  required:
+    - user_id
+    - title
+    - contents
+  properties:
+      id:
+        type: integer
+        example: 1
+      user_id:
+        type: integer
+        example: 1
+      title:
+        type: string
+        example: 'title'
+      contents:
+        type: string
+        example: 'contents'

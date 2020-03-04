@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec pipenv run gunicorn -b :5000 --access-logfile - --error-logfile - application:app
+exec gunicorn -b :5000 --reload --access-logfile - --error-logfile - application:app

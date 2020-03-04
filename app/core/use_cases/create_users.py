@@ -1,8 +1,13 @@
+from dataclasses import dataclass
 from typing import Any
 
-from app.core.dtos.users import CreateUserDto
 from app.core.repositories.users import UserRepository
 from app.core.use_cases import BaseUseCase
+
+
+@dataclass
+class CreateUserDto:
+    nickname: str
 
 
 class CreateUserUseCase(BaseUseCase):

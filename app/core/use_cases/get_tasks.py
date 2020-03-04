@@ -1,13 +1,20 @@
+from dataclasses import dataclass
 from typing import Dict
 from typing import List
 from typing import Union
 
-from app.core.dtos.tasks import GetUserTasksDto
 from app.core.entities.tasks import Task
 from app.core.repositories.tasks import TaskRepository
 from app.core.use_case_outputs import BaseUseCaseSuccessOutput
 from app.core.use_case_outputs import UseCaseFailureOutput
 from app.core.use_cases import BaseUseCase
+
+
+@dataclass
+class GetUserTasksDto:
+    user_id: int
+    previous_id: int = 0
+    limit: int = 10
 
 
 class GetUserTasksUseCaseOutput(BaseUseCaseSuccessOutput):

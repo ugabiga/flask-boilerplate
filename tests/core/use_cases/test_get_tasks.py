@@ -1,6 +1,6 @@
 from unittest import mock
 
-from app.core.dtos.tasks import GetUserTasksDto
+from app.core.use_cases.get_tasks import GetUserTasksDto
 from app.core.entities.tasks import Task
 from app.core.use_cases.get_tasks import GetUserTasksUseCase
 

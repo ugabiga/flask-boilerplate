@@ -1,12 +1,19 @@
+from dataclasses import dataclass
 from typing import Any
 from typing import Union
 
-from app.core.dtos.tasks import CreateTaskDto
 from app.core.entities.tasks import Task
 from app.core.repositories.tasks import TaskRepository
 from app.core.use_case_outputs import BaseUseCaseSuccessOutput
 from app.core.use_case_outputs import UseCaseFailureOutput
 from app.core.use_cases import BaseUseCase
+
+
+@dataclass
+class CreateTaskDto:
+    user_id: int
+    title: str
+    contents: str
 
 
 class CreateTaskUseCaseOutput(BaseUseCaseSuccessOutput):

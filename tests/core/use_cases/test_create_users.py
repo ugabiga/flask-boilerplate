@@ -1,7 +1,7 @@
 from unittest import mock
 
-from app.core.dtos.users import CreateUserDto
 from app.core.entities.users import User
+from app.core.use_cases.create_users import CreateUserDto
 from app.core.use_cases.create_users import CreateUserUseCase
 
 

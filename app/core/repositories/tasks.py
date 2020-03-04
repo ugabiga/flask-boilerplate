@@ -2,7 +2,7 @@ from abc import ABC
 from typing import List
 from typing import Optional
 
-from app.core.dtos.tasks import UpdateTaskDto
+from app.core.use_cases.update_tasks import UpdateTaskDto
 from app.core.entities.tasks import Task
 
 

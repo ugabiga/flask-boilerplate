@@ -2,9 +2,9 @@ from typing import Optional
 
 import voluptuous as v
 
-from app.core.dtos.tasks import CreateTaskDto
-from app.core.dtos.tasks import GetUserTasksDto
-from app.core.dtos.tasks import UpdateTaskDto
+from app.core.use_cases.create_tasks import CreateTaskDto
+from app.core.use_cases.get_tasks import GetUserTasksDto
+from app.core.use_cases.update_tasks import UpdateTaskDto
 from app.http.requests import BaseRequest
 
 

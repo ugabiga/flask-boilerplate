@@ -1,7 +1,8 @@
+from dataclasses import dataclass
 from typing import Any
+from typing import Optional
 from typing import Union
 
-from app.core.dtos.tasks import UpdateTaskDto
 from app.core.entities.tasks import Task
 from app.core.exceptions import NotAuthorizedException
 from app.core.exceptions import NotFoundException
@@ -10,6 +11,13 @@ from app.core.use_case_outputs import BaseUseCaseSuccessOutput
 from app.core.use_case_outputs import UseCaseFailureOutput
 from app.core.use_cases import BaseUseCase
 from app.http.requests.v1.tasks import UpdateTaskRequest
+
+
+@dataclass
+class UpdateTaskDto:
+    task_id: int
+    title: Optional[str] = None
+    contents: Optional[str] = None
 
 
 class UpdateTaskUseCaseOutput(BaseUseCaseSuccessOutput):

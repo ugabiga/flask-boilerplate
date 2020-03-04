@@ -22,7 +22,7 @@ def test_update_task() -> None:
     repo.read_task.return_value = expected_task
     repo.update_task.return_value = expected_task
 
-    result = UpdateTaskUseCase(repo, user_id, req).execute()
+    result = UpdateTaskUseCase(repo, user_id, req.to_dto()).execute()
 
     assert type(result) is not UseCaseFailureOutput
     assert type(result) is UpdateTaskUseCaseOutput

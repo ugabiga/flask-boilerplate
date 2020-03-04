@@ -10,7 +10,6 @@ from app.core.repositories.tasks import TaskRepository
 from app.core.use_case_outputs import BaseUseCaseSuccessOutput
 from app.core.use_case_outputs import UseCaseFailureOutput
 from app.core.use_cases import BaseUseCase
-from app.http.requests.v1.tasks import UpdateTaskRequest
 
 
 @dataclass
@@ -18,6 +17,9 @@ class UpdateTaskDto:
     task_id: int
     title: Optional[str] = None
     contents: Optional[str] = None
+
+    def to_entity(self):
+        return Task(id=self.task_id, title=self.title, contents=self.contents)
 
 
 class UpdateTaskUseCaseOutput(BaseUseCaseSuccessOutput):
@@ -33,14 +35,14 @@ class UpdateTaskUseCaseOutput(BaseUseCaseSuccessOutput):
 
 class UpdateTaskUseCase(BaseUseCase):
     def __init__(
-        self, task_repository: TaskRepository, user_id: int, request: UpdateTaskRequest
+            self, task_repository: TaskRepository, user_id: int, dto: UpdateTaskDto
     ) -> None:
+        self.dto = dto
         self.user_id = user_id
-        self.request = request
         self.task_repository = task_repository
 
     def execute(self) -> Union[UpdateTaskUseCaseOutput, UseCaseFailureOutput]:
-        dto = self.request.to_dto()
+        dto = self.dto
 
         try:
             self._check_task_authorization(dto)
@@ -69,8 +71,8 @@ class UpdateTaskUseCase(BaseUseCase):
 
         return True
 
-    def _update_task(self, dto: UpdateTaskDto) -> Task:
-        new_task = self.task_repository.update_task(dto)
+    def _update_task(self, entity: UpdateTaskDto) -> Task:
+        new_task = self.task_repository.update_task(entity.to_entity())
 
         if new_task is None:
             raise NotFoundException()

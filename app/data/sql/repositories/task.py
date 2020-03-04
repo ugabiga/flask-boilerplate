@@ -1,7 +1,6 @@
 from typing import List
 from typing import Optional
 
-from app.core.use_cases.update_tasks import UpdateTaskDto
 from app.core.entities.tasks import Task as TaskEntity
 from app.core.repositories.tasks import TaskRepository
 from app.data.sql.models.task import Task
@@ -16,14 +15,14 @@ class TaskSQLRepository(TaskRepository):
 
         return task.to_entity()
 
-    def update_task(self, dto: UpdateTaskDto) -> Optional[TaskEntity]:
-        task = self._one_or_none(dto.task_id)
+    def update_task(self, entity: Task) -> Optional[TaskEntity]:
+        task = self._one_or_none(entity.id)
 
         if not task:
             return None
 
-        task.title = dto.title if dto.title else task.title
-        task.contents = dto.contents if dto.contents else task.contents
+        task.title = entity.title if entity.title else task.title
+        task.contents = entity.contents if entity.contents else task.contents
         sql_session.commit()
 
         return task.to_entity()

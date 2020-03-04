@@ -1,6 +1,5 @@
 import pytest
 
-from app.core.use_cases.update_tasks import UpdateTaskDto
 from app.core.entities.tasks import Task
 from app.data.sql.repositories.task import TaskSQLRepository
 
@@ -22,13 +21,10 @@ def test_update_task(repo: TaskSQLRepository, old_task: Task) -> None:
     task_id = old_task.id
     new_task_title = "new title"
     new_task_contents = "new contents"
-
-    dto = UpdateTaskDto(
-        task_id=task_id, title=new_task_title, contents=new_task_contents
-    )
+    entity = Task(id=task_id, title=new_task_title, contents=new_task_contents)
 
     repo.create_task(task_id, old_task.title, old_task.contents)
-    new_task = repo.update_task(dto.to_entity())
+    new_task = repo.update_task(entity)
 
     if not new_task:
         assert False
@@ -38,8 +34,8 @@ def test_update_task(repo: TaskSQLRepository, old_task: Task) -> None:
 
 
 def test_update_task_empty_dto(repo: TaskSQLRepository, old_task: Task) -> None:
-    dto = UpdateTaskDto(task_id=old_task.id)
-    new_task = repo.update_task(dto.to_entity())
+    entity = Task(id=old_task.id)
+    new_task = repo.update_task(entity)
 
     if not new_task:
         assert False
@@ -49,9 +45,9 @@ def test_update_task_empty_dto(repo: TaskSQLRepository, old_task: Task) -> None:
 
 
 def test_update_task_not_found(repo: TaskSQLRepository) -> None:
-    dto = UpdateTaskDto(task_id=1)
+    entity = Task(id=1)
 
-    new_task = repo.update_task(dto.to_entity())
+    new_task = repo.update_task(entity)
 
     if new_task:
         assert False

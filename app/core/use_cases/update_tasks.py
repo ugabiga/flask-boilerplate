@@ -35,7 +35,7 @@ class UpdateTaskUseCaseOutput(BaseUseCaseSuccessOutput):
 
 class UpdateTaskUseCase(BaseUseCase):
     def __init__(
-            self, task_repository: TaskRepository, user_id: int, dto: UpdateTaskDto
+        self, task_repository: TaskRepository, user_id: int, dto: UpdateTaskDto
     ) -> None:
         self.dto = dto
         self.user_id = user_id

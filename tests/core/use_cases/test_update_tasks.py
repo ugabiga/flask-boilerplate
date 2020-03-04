@@ -2,9 +2,9 @@ from unittest import mock
 
 from app.core.entities.tasks import Task
 from app.core.use_case_outputs import UseCaseFailureOutput
-from app.core.use_cases.update_tasks import UpdateTaskUseCaseOutput
+from app.core.use_cases.update_tasks import UpdateTaskDto
 from app.core.use_cases.update_tasks import UpdateTaskUseCase
-from app.http.requests.v1.tasks import UpdateTaskRequest
+from app.core.use_cases.update_tasks import UpdateTaskUseCaseOutput
 
 
 def test_update_task() -> None:
@@ -13,16 +13,13 @@ def test_update_task() -> None:
     title = "title"
     contents = "contents"
     expected_task = Task(task_id, user_id, title, contents)
-
-    req = UpdateTaskRequest(
-        expected_task.id, expected_task.title, expected_task.contents
-    )
+    dto = UpdateTaskDto(task_id, title, contents)
 
     repo = mock.Mock()
     repo.read_task.return_value = expected_task
     repo.update_task.return_value = expected_task
 
-    result = UpdateTaskUseCase(repo, user_id, req.to_dto()).execute()
+    result = UpdateTaskUseCase(repo, user_id, dto).execute()
 
     assert type(result) is not UseCaseFailureOutput
     assert type(result) is UpdateTaskUseCaseOutput

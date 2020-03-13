@@ -12,5 +12,5 @@ def test_create_user() -> None:
     repo = mock.Mock()
     repo.create_user.return_value = expected_user
 
-    result = CreateUserUseCase(repo, dto).execute()
-    assert result == expected_user
+    output = CreateUserUseCase(repo, dto).execute()
+    assert output.get_data() == expected_user

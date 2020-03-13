@@ -5,6 +5,7 @@ from flask import jsonify
 from app.core.use_case_outputs import UseCaseFailureOutput
 
 
+import marshmallow as ma
 from app.http.responses.tasks import TaskSchema
 from flask.wrappers import Response
 from typing import Type
@@ -33,6 +34,6 @@ def build_success_response(*args, meta=None, **kwargs) -> Response:
 
 
 def build_success_dump_response(
-    schema_class: Type[TaskSchema], data: Any, many: bool = None
+    schema_class: Type[ma.Schema], data: Any, many: bool = None
 ) -> Response:
     return build_success_response(schema_class().dump(data, many=many))

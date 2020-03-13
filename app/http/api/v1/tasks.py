@@ -13,13 +13,21 @@ from app.http.responses import build_success_dump_response
 from app.http.responses.tasks import TaskSchema
 
 
+route_name = "tasks"
+
+
 @swag_from("./task_index.yml")
-@api.route(f"{version_prefix}/tasks")
+@api.route(f"{version_prefix}/{route_name}")
 def index():
     return jsonify({"result": True})
 
 
-@api.route(f"{version_prefix}/tasks", methods=["POST"])
+@api.route(f"{version_prefix}/{route_name}/<int:task_id>")
+def detail(task_id):
+    return jsonify({"result": True})
+
+
+@api.route(f"{version_prefix}/{route_name}", methods=["POST"])
 def create():
     req = CreateTaskRequest.from_dict(request.get_json())
     output = CreateTaskUseCase(container.get(TaskRepository), req.to_dto()).execute()
@@ -30,11 +38,11 @@ def create():
     return build_success_dump_response(TaskSchema, output.get_data())
 
 
-@api.route(f"{version_prefix}/tasks", methods=["PUT"])
+@api.route(f"{version_prefix}/{route_name}", methods=["PUT"])
 def update():
     return jsonify({"result": True})
 
 
-@api.route(f"{version_prefix}/tasks", methods=["DELETE"])
+@api.route(f"{version_prefix}/{route_name}", methods=["DELETE"])
 def delete():
     return jsonify({"result": True})

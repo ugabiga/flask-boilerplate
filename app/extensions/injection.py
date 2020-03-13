@@ -5,7 +5,9 @@ from flask import current_app
 from flask.config import Config
 from werkzeug.local import LocalProxy
 
+from app.core.repositories.authentication import AuthenticationRepository
 from app.core.repositories.tasks import TaskRepository
+from app.data.sql.repositories.authentication import AuthenticationSQLRepository
 from app.data.sql.repositories.task import TaskSQLRepository
 
 
@@ -21,6 +23,9 @@ class IocContainer:
 
     def _set_repository(self) -> None:
         self._injection_dict.update({TaskRepository: TaskSQLRepository})
+        self._injection_dict.update(
+            {AuthenticationRepository: AuthenticationSQLRepository}
+        )
 
 
 def _get_di_container() -> IocContainer:

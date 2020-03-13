@@ -10,6 +10,13 @@ class Config:
     SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
     REPO_ENGINE = "MYSQL"
 
+    @staticmethod
+    def init_app(app: Flask) -> None:
+        """
+        For testing purpose
+        """
+        pass
+
 
 class DevelopmentConfig(Config):
     DEBUG = True

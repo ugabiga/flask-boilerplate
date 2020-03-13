@@ -5,12 +5,12 @@ from app.data.sql.repositories.task import TaskSQLRepository
 
 
 @pytest.fixture(scope="function", autouse=True)
-def clean_up_tasks(repo: TaskSQLRepository):
+def clean_up_tasks(repo: TaskSQLRepository) -> None:
     repo.delete_all_tasks()
 
 
 @pytest.fixture(scope="function")
-def old_task(repo: TaskSQLRepository):
+def old_task(repo: TaskSQLRepository) -> Task:
     user_id = 1
     old_task_title = "title"
     old_task_contents = "contents"

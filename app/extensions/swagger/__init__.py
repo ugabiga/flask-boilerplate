@@ -4,10 +4,13 @@ from app.__meta__ import __api_name__, __version__
 
 import yaml
 
+from flask.app import Flask
+from typing import Any, Dict
+
 _swagger_definition = {}
 
 
-def get_swagger_config(app):
+def get_swagger_config() -> Dict[str, Dict[str, Any]]:
     return {
         "config": {
             "headers": [],
@@ -55,7 +58,7 @@ def get_swagger_config(app):
     }
 
 
-def import_definitions():
+def import_definitions() -> None:
     working_folder_path = os.path.dirname(os.path.realpath(__file__))
     for path, sub_dir, files in os.walk(working_folder_path):
         for file_name in files:

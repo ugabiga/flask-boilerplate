@@ -11,7 +11,7 @@ class CreateUserDto:
 
 
 class CreateUserUseCase(BaseUseCase):
-    def __init__(self, user_repository: UserRepository, dto: CreateUserDto):
+    def __init__(self, user_repository: UserRepository, dto: CreateUserDto) -> None:
         self.dto = dto
         self.repo = user_repository
 

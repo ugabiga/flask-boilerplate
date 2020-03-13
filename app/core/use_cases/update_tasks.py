@@ -18,7 +18,7 @@ class UpdateTaskDto:
     title: Optional[str] = None
     contents: Optional[str] = None
 
-    def to_entity(self):
+    def to_entity(self) -> Task:
         return Task(id=self.task_id, title=self.title, contents=self.contents)
 
 

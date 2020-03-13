@@ -27,7 +27,7 @@ def init_extensions(app: Flask) -> None:
     if app.config["REPO_ENGINE"] == "MYSQL":
         sql.init_app(app)
 
-    Swagger(app, **get_swagger_config(app))
+    Swagger(app, **get_swagger_config())
 
 
 def init_blueprints(app: Flask) -> None:

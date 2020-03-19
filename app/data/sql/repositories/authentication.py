@@ -12,7 +12,7 @@ class AuthenticationSQLRepository(AuthenticationRepository):
             user_id=auth.user_id,
             category=auth.category,
             identification=auth.identification,
-            secret=auth.secret
+            secret=auth.secret,
         )
         sql_session.add(new_auth)
         sql_session.commit()

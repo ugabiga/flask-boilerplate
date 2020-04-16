@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from dataclasses import field
 from typing import List
 
-from app.core.entities.authentication import Authentication
+from core.entities.authentication import Authentication
 
 
 @dataclass

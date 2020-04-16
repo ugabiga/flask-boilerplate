@@ -1,6 +1,6 @@
 from flask import Flask
 
-from app.core.entities.tasks import Task
+from core.entities.tasks import Task
 from app.http.responses import build_success_dump_response
 from app.http.responses.tasks import TaskSchema
 

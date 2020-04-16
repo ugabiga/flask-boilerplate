@@ -1,7 +1,7 @@
 import hashlib
 
-from app.core.entities.authentication import Authentication as AuthenticationEntity
-from app.core.repositories.authentication import AuthenticationRepository
+from core.entities.authentication import Authentication as AuthenticationEntity
+from core.repositories.authentication import AuthenticationRepository
 from app.data.sql.models.authentication import Authentication
 from app.extensions.database import sql_session
 

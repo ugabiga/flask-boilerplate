@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 from typing import Any
 
-from app.core.entities.authentication import Authentication
-from app.core.entities.users import User
-from app.core.repositories.authentication import AuthenticationRepository
-from app.core.repositories.users import UserRepository
-from app.core.use_case_outputs import BaseUseCaseSuccessOutput
-from app.core.use_cases import BaseUseCase
+from core.entities.authentication import Authentication
+from core.entities.users import User
+from core.repositories.authentication import AuthenticationRepository
+from core.repositories.users import UserRepository
+from core.use_case_outputs import BaseUseCaseSuccessOutput
+from core.use_cases import BaseUseCase
 
 
 @dataclass

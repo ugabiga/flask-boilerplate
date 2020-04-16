@@ -2,11 +2,11 @@ from dataclasses import dataclass
 from typing import Any
 from typing import Union
 
-from app.core.entities.tasks import Task
-from app.core.repositories.tasks import TaskRepository
-from app.core.use_case_outputs import BaseUseCaseSuccessOutput
-from app.core.use_case_outputs import UseCaseFailureOutput
-from app.core.use_cases import BaseUseCase
+from core.entities.tasks import Task
+from core.repositories.tasks import TaskRepository
+from core.use_case_outputs import BaseUseCaseSuccessOutput
+from core.use_case_outputs import UseCaseFailureOutput
+from core.use_cases import BaseUseCase
 
 
 @dataclass

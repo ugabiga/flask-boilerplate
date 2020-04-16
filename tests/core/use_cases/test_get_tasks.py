@@ -1,8 +1,7 @@
 from unittest import mock
 
-from app.core.use_cases.get_tasks import GetUserTasksDto
-from app.core.entities.tasks import Task
-from app.core.use_cases.get_tasks import GetUserTasksUseCase
+from core.entities.tasks import Task
+from core.use_cases.get_tasks import GetUserTasksDto, GetUserTasksUseCase
 
 
 def test_get_all_tasks_with_pagination() -> None:

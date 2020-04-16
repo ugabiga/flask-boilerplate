@@ -2,8 +2,8 @@ from flasgger import swag_from
 from flask import jsonify
 from flask import request
 
-from app.core.repositories.users import UserRepository
-from app.core.use_cases.create_users import CreateUserUseCase
+from core import UserRepository
+from core.use_cases.create_users import CreateUserUseCase
 from app.extensions.injection import container
 from app.http.api import api
 from app.http.api.v1 import version_prefix

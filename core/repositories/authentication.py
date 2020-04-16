@@ -1,6 +1,6 @@
 from abc import ABC
 
-from app.core.entities.authentication import Authentication as AuthenticationEntity
+from core.entities.authentication import Authentication as AuthenticationEntity
 
 
 class AuthenticationRepository(ABC):

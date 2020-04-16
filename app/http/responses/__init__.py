@@ -2,7 +2,7 @@ from typing import Any
 
 from flask import jsonify
 
-from app.core.use_case_outputs import UseCaseFailureOutput
+from core.use_case_outputs import UseCaseFailureOutput
 
 
 import marshmallow as ma

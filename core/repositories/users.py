@@ -1,6 +1,6 @@
 from abc import ABC
 
-from app.core.entities.users import User
+from core.entities.users import User
 
 
 class UserRepository(ABC):

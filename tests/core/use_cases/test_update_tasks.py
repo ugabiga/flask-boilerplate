@@ -1,10 +1,8 @@
 from unittest import mock
 
-from app.core.entities.tasks import Task
-from app.core.use_case_outputs import UseCaseFailureOutput
-from app.core.use_cases.update_tasks import UpdateTaskDto
-from app.core.use_cases.update_tasks import UpdateTaskUseCase
-from app.core.use_cases.update_tasks import UpdateTaskUseCaseOutput
+from core.entities.tasks import Task
+from core.use_case_outputs import UseCaseFailureOutput
+from core.use_cases.update_tasks import UpdateTaskDto, UpdateTaskUseCase, UpdateTaskUseCaseOutput
 
 
 def test_update_task() -> None:

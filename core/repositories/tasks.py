@@ -2,7 +2,7 @@ from abc import ABC
 from typing import List
 from typing import Optional
 
-from app.core.entities.tasks import Task
+from core.entities.tasks import Task
 
 
 class TaskRepository(ABC):

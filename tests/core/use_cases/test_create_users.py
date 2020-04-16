@@ -1,9 +1,8 @@
 from unittest import mock
 
-from app.core.entities.authentication import Authentication
-from app.core.entities.users import User
-from app.core.use_cases.create_users import CreateUserDto
-from app.core.use_cases.create_users import CreateUserUseCase
+from core.entities.authentication import Authentication
+from core.entities.users import User
+from core.use_cases.create_users import CreateUserDto, CreateUserUseCase
 
 
 def test_create_user() -> None:

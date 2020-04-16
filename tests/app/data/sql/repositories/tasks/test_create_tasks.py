@@ -1,4 +1,4 @@
-from app.core.entities.tasks import Task
+from core.entities.tasks import Task
 from app.data.sql.repositories.task import TaskSQLRepository
 
 

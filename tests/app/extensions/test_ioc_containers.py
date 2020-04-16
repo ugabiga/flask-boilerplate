@@ -1,8 +1,8 @@
 from flask import Flask
 
-from app.core.repositories.tasks import TaskRepository
 from app.data.sql.repositories.task import TaskSQLRepository
 from app.extensions.injection import container
+from core.repositories.tasks import TaskRepository
 
 
 # noinspection PyUnusedLocal

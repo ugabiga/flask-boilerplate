@@ -1,6 +1,6 @@
 from sqlalchemy import func
 
-from app.core.entities.tasks import Task as TaskEntity
+from core.entities.tasks import Task as TaskEntity
 from app.extensions.database import sql as db
 
 

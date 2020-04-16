@@ -1,62 +1,66 @@
-from abc import ABC
-from typing import Any
-from typing import Optional
+from typing import Generic, TypeVar
+
+_ValueType = TypeVar("_ValueType", covariant=True)
 
 
-class UseCaseSuccessOutput(ABC):
-    def __bool__(self):
-        raise NotImplementedError()
+class Output(Generic[_ValueType]):
+    _data: _ValueType
 
-    def get_type(self) -> Any:
-        raise NotImplementedError()
+    def get_data(self) -> _ValueType:
+        raise NotImplementedError
 
-    def get_data(self) -> Any:
-        raise NotImplementedError()
+    def get_meta(self) -> dict:
+        raise NotImplementedError
 
-    def get_meta(self) -> Any:
-        raise NotImplementedError()
-
-
-class BaseUseCaseSuccessOutput(UseCaseSuccessOutput):
-    SUCCESS = "success"
-
-    def __bool__(self) -> bool:
-        return True
-
-    def get_type(self) -> str:
-        return self.SUCCESS
-
-    def get_data(self) -> Any:
-        raise NotImplementedError()
-
-    def get_meta(self) -> Any:
-        raise NotImplementedError()
+    def is_success(self) -> bool:
+        raise NotImplementedError
 
 
-class UseCaseFailureOutput:
+class Failure(Output[_ValueType]):
     RESOURCE_ERROR = "resource_error"
     PARAMETERS_ERROR = "parameters_error"
     SYSTEM_ERROR = "system_error"
     NOT_FOUND_ERROR = "not_found_error"
     NOT_AUTHORIZED_ERROR = "not_authorized_error"
 
-    def __init__(self, type_: str, code: int, message: str) -> None:
-        self.type = type_
-        self.code = code
-        self.message = self._format_message(message)
+    def __init__(self, error_type: str, error_message: str = ""):
+        self._error_type = error_type
+        self._error_message = error_message
 
-    def __bool__(self) -> bool:
+    def is_success(self) -> bool:
         return False
 
-    @classmethod
-    def build_not_found_error(cls, message: Optional[str] = None) -> Any:
-        return cls(cls.NOT_FOUND_ERROR, 404, message)
+    def get_meta(self) -> dict:
+        return {}
+
+    def get_data(self) -> _ValueType:
+        raise NotImplementedError
+
+    def get_type(self) -> str:
+        return self._error_type
+
+    def get_message(self) -> str:
+        return self._error_message
 
     @classmethod
-    def build_not_authorized_error(cls, message: Optional[str] = None) -> Any:
-        return cls(cls.NOT_AUTHORIZED_ERROR, 409, message)
+    def build_not_found_error(cls, error_message: str = ""):
+        return cls(cls.NOT_FOUND_ERROR, error_message)
 
-    def _format_message(self, msg: str) -> str:
-        if isinstance(msg, Exception):
-            return "{}: {}".format(msg.__class__.__name__, "{}".format(msg))
-        return msg
+    @classmethod
+    def build_not_authorized_error(cls, error_message: str = ""):
+        return cls(cls.NOT_AUTHORIZED_ERROR, error_message)
+
+
+class Success(Output[_ValueType]):
+    def __init__(self, data: _ValueType, meta: dict = None) -> None:
+        self._data = data
+        self._meta = {} if meta is None else meta
+
+    def is_success(self) -> bool:
+        return True
+
+    def get_meta(self) -> dict:
+        return self._meta
+
+    def get_data(self) -> _ValueType:
+        return self._data

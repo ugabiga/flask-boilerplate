@@ -4,7 +4,9 @@ from flask import jsonify, request
 from app.http.api import api
 from app.http.api.v1 import version_prefix
 from app.http.requests.v1.tasks import CreateTaskRequest
-from app.http.responses import build_failure_response, build_success_dump_response
+from app.http.responses import (
+    build_response,
+)
 from app.http.responses.tasks import TaskSchema
 from core.use_cases.create_tasks import CreateTaskUseCase
 
@@ -26,11 +28,7 @@ def detail(task_id):
 def create():
     req = CreateTaskRequest.from_dict(request.get_json())
     output = CreateTaskUseCase().execute(req.to_dto())
-
-    if output is False:
-        return build_failure_response(output)
-
-    return build_success_dump_response(TaskSchema, output.get_data())
+    return build_response(output, TaskSchema)
 
 
 @api.route(f"{version_prefix}/{route_name}", methods=["PUT"])

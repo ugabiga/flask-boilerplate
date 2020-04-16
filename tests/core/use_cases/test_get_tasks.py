@@ -1,7 +1,7 @@
 from unittest import mock
 
 from core.entities.tasks import Task
-from core.use_cases.get_tasks import GetUserTasksDto, GetUserTasksUseCase
+from core.use_cases.get_tasks import GetTasksByUserUseCase, GetUserTasksDto
 
 
 def test_get_all_tasks_with_pagination() -> None:
@@ -16,9 +16,8 @@ def test_get_all_tasks_with_pagination() -> None:
     repo = mock.Mock()
     repo.get_tasks.return_value = mock_tasks
 
-    result = GetUserTasksUseCase(repo).execute(dto)
-    if not result:
-        assert False
+    output = GetTasksByUserUseCase(repo).execute(dto)
+    assert True if output.is_success() else False
 
-    assert result.get_data() == mock_tasks
-    assert result.get_meta() == {"previous_id": mock_tasks[-1].id, "limit": 10}
+    assert output.get_data() == mock_tasks
+    assert output.get_meta() == {"previous_id": mock_tasks[-1].id, "limit": 10}

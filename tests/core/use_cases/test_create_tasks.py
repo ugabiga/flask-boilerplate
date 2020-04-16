@@ -16,10 +16,10 @@ def test_create_task() -> None:
     repo = mock.Mock()
     repo.create_task.return_value = expected_task
 
-    result = CreateTaskUseCase(repo).execute(dto)
-    assert result
+    output = CreateTaskUseCase(repo).execute(dto)
+    assert True if output.is_success() else False
 
-    task = result.get_data()
+    task = output.get_data()
     assert type(task) is Task
     assert task.user_id is expected_task.user_id
     assert task.title is expected_task.title
@@ -34,12 +34,10 @@ def test_create_task_repository_fail() -> None:
         title=request_task.title,
         contents=request_task.contents,
     )
+
     repo = mock.Mock()
     repo.create_task.return_value = None
 
-    result = CreateTaskUseCase(repo).execute(dto)
+    output = CreateTaskUseCase(repo).execute(dto)
 
-    if result:
-        assert False
-
-    assert True
+    assert False if output.is_success() else True

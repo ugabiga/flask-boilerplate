@@ -1,11 +1,10 @@
 from dataclasses import dataclass
-from typing import Any, Union
 
 import inject
 
 from core.entities.tasks import Task
 from core.repositories.tasks import TaskRepository
-from core.use_case_outputs import BaseUseCaseSuccessOutput, UseCaseFailureOutput
+from core.use_case_outputs import Failure, Output, Success
 
 
 @dataclass
@@ -15,28 +14,15 @@ class CreateTaskDto:
     contents: str
 
 
-class CreateTaskUseCaseOutput(BaseUseCaseSuccessOutput):
-    def __init__(self, task: Task) -> None:
-        self.task = task
-
-    def get_data(self) -> Task:
-        return self.task
-
-    def get_meta(self) -> Any:
-        return None
-
-
 class CreateTaskUseCase:
     @inject.autoparams()
     def __init__(self, task_repository: TaskRepository) -> None:
         self.repository = task_repository
 
-    def execute(
-        self, dto: CreateTaskDto
-    ) -> Union[CreateTaskUseCaseOutput, UseCaseFailureOutput]:
+    def execute(self, dto: CreateTaskDto) -> Output[Task]:
         task = self.repository.create_task(dto.user_id, dto.title, dto.contents)
 
         if not task:
-            return UseCaseFailureOutput.build_not_found_error("task_not_found")
+            return Failure.build_not_found_error()
 
-        return CreateTaskUseCaseOutput(task)
+        return Success(task)

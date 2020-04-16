@@ -4,7 +4,7 @@ from flask import jsonify, request
 from app.http.api import api
 from app.http.api.v1 import version_prefix
 from app.http.requests.v1.users import CreateUserRequest
-from app.http.responses import build_success_dump_response
+from app.http.responses import build_response
 from app.http.responses.users import UserSchema
 from core.use_cases.create_users import CreateUserUseCase
 
@@ -22,7 +22,7 @@ def index():
 def create():
     dto = CreateUserRequest.from_dict(request.get_json()).to_dto()
     output = CreateUserUseCase().execute(dto)
-    return build_success_dump_response(UserSchema, output.get_data())
+    return build_response(output, UserSchema)
 
 
 @swag_from("")

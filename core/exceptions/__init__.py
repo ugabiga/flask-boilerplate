@@ -1,6 +1,6 @@
-class NotFoundException(Exception):
+class NotFoundError(Exception):
     pass
 
 
-class NotAuthorizedException(Exception):
+class NotAuthorizedError(Exception):
     pass

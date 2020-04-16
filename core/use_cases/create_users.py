@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Any
 
 import inject
 
@@ -7,7 +6,7 @@ from core.entities.authentication import Authentication
 from core.entities.users import User
 from core.repositories.authentication import AuthenticationRepository
 from core.repositories.users import UserRepository
-from core.use_case_outputs import BaseUseCaseSuccessOutput
+from core.use_case_outputs import Output, Success
 
 
 @dataclass
@@ -18,17 +17,6 @@ class CreateUserDto:
     auth_secret: str
 
 
-class CreateUserUseCaseOutput(BaseUseCaseSuccessOutput):
-    def __init__(self, user: User) -> None:
-        self.user = user
-
-    def get_data(self) -> User:
-        return self.user
-
-    def get_meta(self) -> Any:
-        return None
-
-
 class CreateUserUseCase:
     @inject.autoparams()
     def __init__(
@@ -37,12 +25,12 @@ class CreateUserUseCase:
         self.user_repo = user_repository
         self.auth_repo = auth_repository
 
-    def execute(self, dto: CreateUserDto) -> Any:
+    def execute(self, dto: CreateUserDto) -> Output[User]:
         user = self.user_repo.create_user(dto.nickname)
         auth = self._create_authentication(user.id, dto)
         user.authentications.append(auth)
 
-        return CreateUserUseCaseOutput(user)
+        return Success(user)
 
     def _create_authentication(
         self, user_id: int, dto: CreateUserDto

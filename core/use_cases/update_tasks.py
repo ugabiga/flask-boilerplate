@@ -1,10 +1,10 @@
 from dataclasses import dataclass
-from typing import Any, Optional, Union
+from typing import Optional
 
 from core.entities.tasks import Task
-from core.exceptions import NotAuthorizedException, NotFoundException
+from core.exceptions import NotAuthorizedError, NotFoundError
 from core.repositories.tasks import TaskRepository
-from core.use_case_outputs import BaseUseCaseSuccessOutput, UseCaseFailureOutput
+from core.use_case_outputs import Failure, Output, Success
 
 
 @dataclass
@@ -18,48 +18,33 @@ class UpdateTaskDto:
         return Task(id=self.task_id, title=self.title, contents=self.contents)
 
 
-class UpdateTaskUseCaseOutput(BaseUseCaseSuccessOutput):
-    def __init__(self, task: Task) -> None:
-        self.task = task
-
-    def get_data(self) -> Task:
-        return self.task
-
-    def get_meta(self) -> Any:
-        return None
-
-
 class UpdateTaskUseCase:
     def __init__(self, task_repository: TaskRepository) -> None:
         self.task_repository = task_repository
 
-    def execute(
-        self, dto: UpdateTaskDto
-    ) -> Union[UpdateTaskUseCaseOutput, UseCaseFailureOutput]:
+    def execute(self, dto: UpdateTaskDto) -> Output[Task]:
         try:
             self._check_task_authorization(dto)
-        except NotFoundException:
-            return UseCaseFailureOutput.build_not_found_error("task_not_found")
-        except NotAuthorizedException:
-            return UseCaseFailureOutput.build_not_authorized_error(
-                "not_authorized_action"
-            )
+        except NotFoundError:
+            return Failure.build_not_found_error()
+        except NotAuthorizedError:
+            return Failure.build_not_authorized_error()
 
         try:
             new_task = self._update_task(dto)
-        except NotFoundException:
-            return UseCaseFailureOutput.build_not_found_error("task_not_found")
+        except NotFoundError:
+            return Failure.build_not_found_error()
 
-        return UpdateTaskUseCaseOutput(new_task)
+        return Success(new_task)
 
     def _check_task_authorization(self, dto: UpdateTaskDto) -> bool:
         task = self.task_repository.read_task(dto.task_id)
 
         if task is None:
-            raise NotFoundException()
+            raise NotFoundError()
 
         if task.user_id != dto.user_id:
-            raise NotAuthorizedException()
+            raise NotAuthorizedError()
 
         return True
 
@@ -67,6 +52,6 @@ class UpdateTaskUseCase:
         new_task = self.task_repository.update_task(entity.to_entity())
 
         if new_task is None:
-            raise NotFoundException()
+            raise NotFoundError()
 
         return new_task

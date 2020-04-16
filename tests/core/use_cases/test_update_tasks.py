@@ -1,12 +1,7 @@
 from unittest import mock
 
 from core.entities.tasks import Task
-from core.use_case_outputs import UseCaseFailureOutput
-from core.use_cases.update_tasks import (
-    UpdateTaskDto,
-    UpdateTaskUseCase,
-    UpdateTaskUseCaseOutput,
-)
+from core.use_cases.update_tasks import UpdateTaskDto, UpdateTaskUseCase
 
 
 def test_update_task() -> None:
@@ -21,12 +16,11 @@ def test_update_task() -> None:
     repo.read_task.return_value = expected_task
     repo.update_task.return_value = expected_task
 
-    result = UpdateTaskUseCase(repo).execute(dto)
+    output = UpdateTaskUseCase(repo).execute(dto)
+    assert True if output.is_success() else False
 
-    assert type(result) is not UseCaseFailureOutput
-    assert type(result) is UpdateTaskUseCaseOutput
-
-    assert result.get_data().id == expected_task.id
-    assert result.get_data().user_id == expected_task.user_id
-    assert result.get_data().title == expected_task.title
-    assert result.get_data().contents == expected_task.contents
+    task = output.get_data()
+    assert task.id == expected_task.id
+    assert task.user_id == expected_task.user_id
+    assert task.title == expected_task.title
+    assert task.contents == expected_task.contents

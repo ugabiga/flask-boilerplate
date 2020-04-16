@@ -16,7 +16,7 @@ def test_create_task() -> None:
     repo = mock.Mock()
     repo.create_task.return_value = expected_task
 
-    result = CreateTaskUseCase(repo, dto).execute()
+    result = CreateTaskUseCase(repo).execute(dto)
     assert result
 
     task = result.get_data()
@@ -37,7 +37,7 @@ def test_create_task_repository_fail() -> None:
     repo = mock.Mock()
     repo.create_task.return_value = None
 
-    result = CreateTaskUseCase(repo, dto).execute()
+    result = CreateTaskUseCase(repo).execute(dto)
 
     if result:
         assert False

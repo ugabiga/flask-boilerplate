@@ -7,6 +7,7 @@ from flask.app import Flask
 
 from app.config import config
 from app.extensions.database import sql
+from app.extensions.injection import init_ioc_container
 from app.extensions.swagger import get_swagger_config
 from app.http.api import api as api_bp
 from app.http.main import main as main_bp
@@ -43,4 +44,5 @@ def create_app(
     init_config(app, config_name, settings)
     init_extensions(app)
     init_blueprints(app)
+    init_ioc_container(app)
     return app

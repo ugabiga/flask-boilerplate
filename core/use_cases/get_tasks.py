@@ -1,13 +1,9 @@
 from dataclasses import dataclass
-from typing import Dict
-from typing import List
-from typing import Union
+from typing import Dict, List, Union
 
 from core.entities.tasks import Task
 from core.repositories.tasks import TaskRepository
-from core.use_case_outputs import BaseUseCaseSuccessOutput
-from core.use_case_outputs import UseCaseFailureOutput
-from core.use_cases import BaseUseCase
+from core.use_case_outputs import BaseUseCaseSuccessOutput, UseCaseFailureOutput
 
 
 @dataclass
@@ -29,19 +25,20 @@ class GetUserTasksUseCaseOutput(BaseUseCaseSuccessOutput):
         return self.meta
 
 
-class GetUserTasksUseCase(BaseUseCase):
-    def __init__(self, task_repository: TaskRepository, dto: GetUserTasksDto) -> None:
-        self.dto = dto
+class GetUserTasksUseCase:
+    def __init__(self, task_repository: TaskRepository) -> None:
         self.task_repository = task_repository
 
-    def execute(self) -> Union[GetUserTasksUseCaseOutput, UseCaseFailureOutput]:
+    def execute(
+        self, dto: GetUserTasksDto
+    ) -> Union[GetUserTasksUseCaseOutput, UseCaseFailureOutput]:
         tasks = self.task_repository.get_tasks(
-            previous_id=self.dto.previous_id, limit=self.dto.limit
+            previous_id=dto.previous_id, limit=dto.limit
         )
 
         if len(tasks) < 1:
             return UseCaseFailureOutput.build_not_found_error("tasks_not_found")
 
         return GetUserTasksUseCaseOutput(
-            tasks=tasks, meta={"previous_id": tasks[-1].id, "limit": self.dto.limit}
+            tasks=tasks, meta={"previous_id": tasks[-1].id, "limit": dto.limit}
         )

@@ -1,36 +1,17 @@
-# noinspection PyUnresolvedReferences
-from typing import T
+from flask import Flask
+import inject
+from inject import Binder
 
-from flask import current_app
-from flask.config import Config
-from werkzeug.local import LocalProxy
-
-from core.repositories.authentication import AuthenticationRepository
-from core.repositories.tasks import TaskRepository
 from app.data.sql.repositories.authentication import AuthenticationSQLRepository
 from app.data.sql.repositories.task import TaskSQLRepository
+from core.repositories.authentication import AuthenticationRepository
+from core.repositories.tasks import TaskRepository
 
 
-class IocContainer:
-    _injection_dict = {}
-
-    def __init__(self, config: Config) -> None:
-        self.config = config
-        self._set_repository()
-
-    def get(self, cls: T) -> T:
-        return self._injection_dict[cls]()
-
-    def _set_repository(self) -> None:
-        self._injection_dict.update({TaskRepository: TaskSQLRepository})
-        self._injection_dict.update(
-            {AuthenticationRepository: AuthenticationSQLRepository}
-        )
+def bind(binder: Binder, app: Flask):
+    binder.bind_to_provider(TaskRepository, TaskSQLRepository)
+    binder.bind_to_provider(AuthenticationRepository, AuthenticationSQLRepository)
 
 
-def _get_di_container() -> IocContainer:
-    return IocContainer(current_app.config)
-
-
-# noinspection PyTypeChecker
-container: IocContainer = LocalProxy(_get_di_container)
+def init_ioc_container(app: Flask) -> None:
+    inject.clear_and_configure(lambda binder: bind(binder, app))

@@ -1,11 +1,11 @@
 from flask import Flask
+import inject
 
 from app.data.sql.repositories.task import TaskSQLRepository
-from app.extensions.injection import container
 from core.repositories.tasks import TaskRepository
 
 
 # noinspection PyUnusedLocal
 def test_injecting_repository(app: Flask) -> None:
-    repository = container.get(TaskRepository)
+    repository = inject.instance(TaskRepository)
     assert type(repository) is TaskSQLRepository

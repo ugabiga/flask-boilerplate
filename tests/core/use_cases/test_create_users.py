@@ -26,7 +26,7 @@ def test_create_user() -> None:
     auth_repo = mock.Mock()
     auth_repo.create_auth.return_value = expected_auth
 
-    output = CreateUserUseCase(user_repo, auth_repo, dto).execute()
+    output = CreateUserUseCase(user_repo, auth_repo).execute(dto)
 
     assert output.get_data() == expected_user
     assert output.get_data().authentications[0] == expected_auth

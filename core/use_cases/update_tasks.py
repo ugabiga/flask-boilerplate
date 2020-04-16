@@ -1,20 +1,16 @@
 from dataclasses import dataclass
-from typing import Any
-from typing import Optional
-from typing import Union
+from typing import Any, Optional, Union
 
 from core.entities.tasks import Task
-from core.exceptions import NotAuthorizedException
-from core.exceptions import NotFoundException
+from core.exceptions import NotAuthorizedException, NotFoundException
 from core.repositories.tasks import TaskRepository
-from core.use_case_outputs import BaseUseCaseSuccessOutput
-from core.use_case_outputs import UseCaseFailureOutput
-from core.use_cases import BaseUseCase
+from core.use_case_outputs import BaseUseCaseSuccessOutput, UseCaseFailureOutput
 
 
 @dataclass
 class UpdateTaskDto:
     task_id: int
+    user_id: int
     title: Optional[str] = None
     contents: Optional[str] = None
 
@@ -33,17 +29,13 @@ class UpdateTaskUseCaseOutput(BaseUseCaseSuccessOutput):
         return None
 
 
-class UpdateTaskUseCase(BaseUseCase):
-    def __init__(
-        self, task_repository: TaskRepository, user_id: int, dto: UpdateTaskDto
-    ) -> None:
-        self.dto = dto
-        self.user_id = user_id
+class UpdateTaskUseCase:
+    def __init__(self, task_repository: TaskRepository) -> None:
         self.task_repository = task_repository
 
-    def execute(self) -> Union[UpdateTaskUseCaseOutput, UseCaseFailureOutput]:
-        dto = self.dto
-
+    def execute(
+        self, dto: UpdateTaskDto
+    ) -> Union[UpdateTaskUseCaseOutput, UseCaseFailureOutput]:
         try:
             self._check_task_authorization(dto)
         except NotFoundException:
@@ -66,7 +58,7 @@ class UpdateTaskUseCase(BaseUseCase):
         if task is None:
             raise NotFoundException()
 
-        if task.user_id != self.user_id:
+        if task.user_id != dto.user_id:
             raise NotAuthorizedException()
 
         return True

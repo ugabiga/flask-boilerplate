@@ -1,6 +1,4 @@
-from typing import Any
-from typing import Dict
-from typing import Optional
+from typing import Any, Dict, Optional
 
 from flasgger import Swagger
 from flask.app import Flask

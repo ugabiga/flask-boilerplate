@@ -1,5 +1,6 @@
+from app.data.sql.repositories.authentication import \
+    AuthenticationSQLRepository
 from core.entities.authentication import Authentication
-from app.data.sql.repositories.authentication import AuthenticationSQLRepository
 
 
 def test_create_authentication(repo: AuthenticationSQLRepository) -> None:

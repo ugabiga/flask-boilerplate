@@ -1,11 +1,10 @@
 import fnmatch
 import os
-from app.__meta__ import __api_name__, __version__
+from typing import Any, Dict
 
 import yaml
 
-from flask.app import Flask
-from typing import Any, Dict
+from app.__meta__ import __api_name__, __version__
 
 _swagger_definition = {}
 

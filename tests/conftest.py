@@ -1,9 +1,9 @@
 import os
 
+import pytest
 from _pytest.fixtures import SubRequest
 from flask.app import Flask
 from flask_sqlalchemy import SQLAlchemy
-import pytest
 from sqlalchemy.orm.scoping import scoped_session
 
 from app import create_app

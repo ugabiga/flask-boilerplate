@@ -1,8 +1,6 @@
-from abc import ABC
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
-from voluptuous import MultipleInvalid
-from voluptuous import Schema
+from voluptuous import MultipleInvalid, Schema
 
 
 class ABCRequest(ABC):

@@ -1,10 +1,9 @@
-from typing import List
-from typing import Optional
+from typing import List, Optional
 
-from core.entities.tasks import Task as TaskEntity
-from core.repositories.tasks import TaskRepository
 from app.data.sql.models.task import Task
 from app.extensions.database import sql_session
+from core.entities.tasks import Task as TaskEntity
+from core.repositories.tasks import TaskRepository
 
 
 class TaskSQLRepository(TaskRepository):

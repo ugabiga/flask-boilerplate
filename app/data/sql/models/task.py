@@ -1,7 +1,7 @@
 from sqlalchemy import func
 
-from core.entities.tasks import Task as TaskEntity
 from app.extensions.database import sql as db
+from core.entities.tasks import Task as TaskEntity
 
 
 class Task(db.Model):

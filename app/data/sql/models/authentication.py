@@ -1,7 +1,7 @@
 from sqlalchemy import func
 
-from core.entities.authentication import Authentication as AuthenticationEntity
 from app.extensions.database import sql as db
+from core.entities.authentication import Authentication as AuthenticationEntity
 
 
 class Authentication(db.Model):

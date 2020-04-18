@@ -2,10 +2,10 @@ from typing import Optional
 
 import voluptuous as v
 
-from core import CreateTaskDto
-from core import GetUserTasksDto
-from core.use_cases.update_tasks import UpdateTaskDto
 from app.http.requests import BaseRequest
+from core.use_cases.create_tasks import CreateTaskDto
+from core.use_cases.get_tasks import GetUserTasksDto
+from core.use_cases.update_tasks import UpdateTaskDto
 
 
 class CreateUserRequest(BaseRequest):

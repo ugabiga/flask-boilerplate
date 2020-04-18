@@ -1,13 +1,11 @@
 from typing import Any, Type
 
-from flask import jsonify
 import marshmallow as ma
+from flask import jsonify
+from flask.wrappers import Response
 
 from app.http.responses.tasks import TaskSchema
 from core.use_case_outputs import Failure, Output
-
-
-from flask.wrappers import Response
 
 
 def build_success_output_with_schema(

@@ -1,5 +1,5 @@
-from flask import Flask
 import inject
+from flask import Flask
 
 from app.data.sql.repositories.task import TaskSQLRepository
 from core.repositories.tasks import TaskRepository

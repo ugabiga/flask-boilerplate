@@ -7,15 +7,18 @@ from app.http.responses.tasks import TaskSchema
 from core.use_case_outputs import Failure, Output
 
 
+from flask.wrappers import Response
+
+
 def build_success_output_with_schema(
     output: Output, schema_class: Type[ma.Schema] = None, many: bool = None
-):
+) -> Response:
     return build_success_response(
         schema_class().dump(output.get_data(), many=many), output.get_meta()
     )
 
 
-def build_success_response(data: Any, meta: dict = None):
+def build_success_response(data: Any, meta: dict = None) -> Response:
     response = {"data": data}
 
     if meta is not None:
@@ -30,7 +33,7 @@ def build_failure_response(output: Failure):
 
 def build_response(
     output: Output, schema_class: Type[ma.Schema] = None, many: bool = None
-):
+) -> Response:
     if output.is_success() and schema_class is not None:
         return build_success_output_with_schema(output, schema_class, many)
 

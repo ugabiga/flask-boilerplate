@@ -8,7 +8,7 @@ from core.repositories.authentication import AuthenticationRepository
 from core.repositories.tasks import TaskRepository
 
 
-def bind(binder: Binder, app: Flask):
+def bind(binder: Binder, app: Flask) -> None:
     binder.bind_to_provider(TaskRepository, TaskSQLRepository)
     binder.bind_to_provider(AuthenticationRepository, AuthenticationSQLRepository)
 

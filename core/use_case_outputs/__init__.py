@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Generic, TypeVar
 
 _ValueType = TypeVar("_ValueType", covariant=True)
@@ -23,7 +25,7 @@ class Failure(Output[_ValueType]):
     NOT_FOUND_ERROR = "not_found_error"
     NOT_AUTHORIZED_ERROR = "not_authorized_error"
 
-    def __init__(self, error_type: str, error_message: str = ""):
+    def __init__(self, error_type: str, error_message: str = "") -> None:
         self._error_type = error_type
         self._error_message = error_message
 
@@ -43,7 +45,7 @@ class Failure(Output[_ValueType]):
         return self._error_message
 
     @classmethod
-    def build_not_found_error(cls, error_message: str = ""):
+    def build_not_found_error(cls, error_message: str = "") -> Failure:
         return cls(cls.NOT_FOUND_ERROR, error_message)
 
     @classmethod

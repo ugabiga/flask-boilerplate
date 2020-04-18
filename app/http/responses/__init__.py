@@ -4,7 +4,6 @@ import marshmallow as ma
 from flask import jsonify
 from flask.wrappers import Response
 
-from app.http.responses.tasks import TaskSchema
 from core.use_case_outputs import Failure, Output
 
 

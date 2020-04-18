@@ -1,8 +1,9 @@
-from flask.app import Flask
 import pytest
+from flask.app import Flask
 from sqlalchemy.orm import scoped_session
 
-from app.data.sql.repositories.authentication import AuthenticationSQLRepository
+from app.data.sql.repositories.authentication import \
+    AuthenticationSQLRepository
 
 
 # noinspection PyUnusedLocal

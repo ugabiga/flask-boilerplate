@@ -4,9 +4,7 @@ from flask import jsonify, request
 from app.http.api import api
 from app.http.api.v1 import version_prefix
 from app.http.requests.v1.tasks import CreateTaskRequest
-from app.http.responses import (
-    build_response,
-)
+from app.http.responses import build_response
 from app.http.responses.tasks import TaskSchema
 from core.use_cases.create_tasks import CreateTaskUseCase
 

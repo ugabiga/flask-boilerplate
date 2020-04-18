@@ -2,8 +2,7 @@ import inject
 from flask import Flask
 from inject import Binder
 
-from app.data.sql.repositories.authentication import \
-    AuthenticationSQLRepository
+from app.data.sql.repositories.authentication import AuthenticationSQLRepository
 from app.data.sql.repositories.task import TaskSQLRepository
 from core.repositories.authentication import AuthenticationRepository
 from core.repositories.tasks import TaskRepository

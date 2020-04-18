@@ -1,5 +1,4 @@
-from app.data.sql.repositories.authentication import \
-    AuthenticationSQLRepository
+from app.data.sql.repositories.authentication import AuthenticationSQLRepository
 from core.entities.authentication import Authentication
 
 

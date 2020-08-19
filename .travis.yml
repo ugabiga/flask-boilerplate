@@ -7,4 +7,4 @@ install:
   - poetry install
 script:
   - poetry run py.test --cov-report=xml --cov=.
-  - poetry run bash <(curl -s https://codecov.io/bash) -t CODECOV_TOKEN
+  - poetry run bash <(curl -s https://codecov.io/bash)

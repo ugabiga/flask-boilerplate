@@ -34,13 +34,12 @@ def init_blueprints(app: Flask) -> None:
     app.register_blueprint(api_bp)
 
 
-def create_app(
-    config_name: str = "default", settings: Optional[Dict[str, Any]] = None
-) -> Flask:
+def create_app(config_name: str = "default") -> Flask:
     app = Flask(__name__)
 
-    init_config(app, config_name, settings)
+    init_config(app, config_name)
     init_extensions(app)
     init_blueprints(app)
     init_ioc_container(app)
+
     return app

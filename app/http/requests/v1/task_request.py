@@ -44,7 +44,7 @@ class GetUerTasksRequest(BaseRequest):
     def to_dto(self) -> GetUserTasksDto:
         # TODO : Add authentication and refactor hard coded value
         return GetUserTasksDto(
-            user_id=1, previous_id=self.previous_id, limit=self.limit
+            user_id=1, previous_id=int(self.previous_id), limit=int(self.limit)
         )
 
 

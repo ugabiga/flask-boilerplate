@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import List
 
+import inject
+
 from core.entities.tasks import Task
 from core.repositories.tasks import TaskRepository
 from core.use_case_outputs import Failure, Output, Success
@@ -14,6 +16,7 @@ class GetUserTasksDto:
 
 
 class GetTasksByUserUseCase:
+    @inject.autoparams()
     def __init__(self, task_repository: TaskRepository) -> None:
         self.task_repository = task_repository
 

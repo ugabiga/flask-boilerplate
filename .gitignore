@@ -142,3 +142,6 @@ monkeytype.sqlite3
 
 # idea
 .idea/
+
+# custom
+test.db

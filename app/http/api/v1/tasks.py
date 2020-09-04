@@ -6,7 +6,7 @@ from flask.wrappers import Response
 
 from app.http.api import api
 from app.http.api.v1 import version_prefix
-from app.http.requests.v1 import task_request
+from app.http.requests.v1 import task
 from app.http.responses import build_response
 from app.http.responses.tasks import TaskSchema
 from core.use_cases.create_tasks import CreateTaskUseCase
@@ -18,7 +18,7 @@ route_name = "tasks"
 @swag_from("./task_index.yml")
 @api.route(f"{version_prefix}/{route_name}")
 def index() -> Tuple[Response, int]:
-    req = task_request.GetUerTasksRequest.from_dict(request.args.to_dict())
+    req = task.GetUerTasksRequest.from_dict(request.args.to_dict())
     output = GetTasksByUserUseCase().execute(req.to_dto())
     return build_response(output, TaskSchema, True)
 
@@ -30,7 +30,7 @@ def detail(task_id):
 
 @api.route(f"{version_prefix}/{route_name}", methods=["POST"])
 def create():
-    req = task_request.CreateTaskRequest.from_dict(request.get_json())
+    req = task.CreateTaskRequest.from_dict(request.get_json())
     output = CreateTaskUseCase().execute(req.to_dto())
     return build_response(output, TaskSchema)
 

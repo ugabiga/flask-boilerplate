@@ -4,18 +4,18 @@ from flask.app import Flask
 
 
 class Config:
+    # Default
+    DEBUG = True
+    TESTING = False
     SECRET_KEY = os.environ.get("SECRET_KEY") or "hard to guess string"
+
+    # Database
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_RECORD_QUERIES = True
     SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
-    REPO_ENGINE = "MYSQL"
 
-    @staticmethod
-    def init_app(app: Flask) -> None:
-        """
-        For testing purpose
-        """
-        pass
+    # CSRF
+    WTF_CSRF_ENABLED = True
 
 
 class DevelopmentConfig(Config):
@@ -31,4 +31,7 @@ class TestingConfig(Config):
     WTF_CSRF_ENABLED = False
 
 
-config = {"default": DevelopmentConfig, "testing": TestingConfig}
+def init_config(app: Flask, config_name: str) -> None:
+    config = {"default": DevelopmentConfig, "testing": TestingConfig}
+    app_config = config[config_name]
+    app.config.from_object(app_config)

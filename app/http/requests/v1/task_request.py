@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Optional
 
 import voluptuous as v
 
@@ -38,7 +38,10 @@ class GetUerTasksRequest(BaseRequest):
     @classmethod
     def _get_validation_schema(cls) -> v.Schema:
         return v.Schema(
-            {v.Optional("previous_id"): v.All(int), v.Optional("limit"): v.All(int)}
+            {
+                v.Optional("previous_id"): v.Coerce(int),
+                v.Optional("limit"): v.Coerce(int),
+            }
         )
 
     def to_dto(self) -> GetUserTasksDto:
@@ -49,10 +52,9 @@ class GetUerTasksRequest(BaseRequest):
 
 
 class UpdateTaskRequest(BaseRequest):
-    def __init__(
-        self, task_id: int, title: Optional[str], contents: Optional[str]
-    ) -> None:
+    def __init__(self, task_id: int, user_id: int, title: str, contents: str) -> None:
         self.task_id = task_id
+        self.user_id = user_id
         self.title = title
         self.contents = contents
 
@@ -67,4 +69,4 @@ class UpdateTaskRequest(BaseRequest):
         )
 
     def to_dto(self) -> UpdateTaskDto:
-        return UpdateTaskDto(self.task_id, self.title, self.contents)
+        return UpdateTaskDto(self.task_id, self.user_id, self.title, self.contents)

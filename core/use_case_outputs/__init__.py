@@ -24,6 +24,7 @@ class Failure(Output[_ValueType]):
     SYSTEM_ERROR = "system_error"
     NOT_FOUND_ERROR = "not_found_error"
     NOT_AUTHORIZED_ERROR = "not_authorized_error"
+    EMPTY_INTERNAL_RESPONSE_ERROR = "empty_internal_response_error"
 
     def __init__(self, error_type: str, error_message: str = "") -> None:
         self._error_type = error_type
@@ -49,8 +50,12 @@ class Failure(Output[_ValueType]):
         return cls(cls.NOT_FOUND_ERROR, error_message)
 
     @classmethod
-    def build_not_authorized_error(cls, error_message: str = ""):
+    def build_not_authorized_error(cls, error_message: str = "") -> Failure:
         return cls(cls.NOT_AUTHORIZED_ERROR, error_message)
+
+    @classmethod
+    def build_empty_internal_response_error(cls, error_message: str = ""):
+        return cls(cls.EMPTY_INTERNAL_RESPONSE_ERROR, error_message)
 
 
 class Success(Output[_ValueType]):

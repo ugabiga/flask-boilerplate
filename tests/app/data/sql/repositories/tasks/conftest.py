@@ -1,5 +1,5 @@
 import pytest
-from sqlalchemy.orm.scoping import scoped_session
+from sqlalchemy.orm.scoping import scoped_session  # type:ignore
 
 from app.data.sql.repositories.task import TaskSQLRepository
 

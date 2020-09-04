@@ -18,9 +18,7 @@ route_name = "tasks"
 @swag_from("./task_index.yml")
 @api.route(f"{version_prefix}/{route_name}")
 def index() -> Tuple[Response, int]:
-    req = task_request.GetUerTasksRequest(
-        previous_id=request.args.get("previous_id"), limit=request.args.get("limit")
-    )
+    req = task_request.GetUerTasksRequest.from_dict(request.args.to_dict())
     output = GetTasksByUserUseCase().execute(req.to_dto())
     return build_response(output, TaskSchema, True)
 

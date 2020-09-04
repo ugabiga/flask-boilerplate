@@ -6,7 +6,7 @@ from core.entities.authentication import Authentication
 
 @dataclass
 class User:
-    id: int = None
-    nickname: str = None
+    id: int
+    nickname: str
 
     authentications: List[Authentication] = field(default_factory=lambda: [])

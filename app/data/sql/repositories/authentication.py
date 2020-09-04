@@ -19,8 +19,7 @@ class AuthenticationSQLRepository(AuthenticationRepository):
 
         return new_auth.to_entity()
 
-    def _encoding_secret(self, category: str, secret: str) -> str:
+    def _encoding_secret(self, secret: str) -> str:
         salt = "secret"
 
-        if category == AuthenticationEntity.EMAIL:
-            return hashlib.sha512(secret + salt).hexdigest()
+        return hashlib.sha512((secret + salt).encode("utf-8")).hexdigest()

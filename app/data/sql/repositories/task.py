@@ -14,14 +14,16 @@ class TaskSQLRepository(TaskRepository):
 
         return task.to_entity()
 
-    def update_task(self, entity: Task) -> Optional[TaskEntity]:
-        task = self._one_or_none(entity.id)
+    def update_task(
+        self, task_id: int, title: Optional[str] = None, contents: Optional[str] = None
+    ) -> Optional[TaskEntity]:
+        task = self._one_or_none(task_id)
 
         if not task:
             return None
 
-        task.title = entity.title if entity.title else task.title
-        task.contents = entity.contents if entity.contents else task.contents
+        task.title = title if title else task.title
+        task.contents = contents if contents else task.contents
         sql_session.commit()
 
         return task.to_entity()

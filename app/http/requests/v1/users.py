@@ -49,9 +49,7 @@ class GetUerTasksRequest(BaseRequest):
 
 
 class UpdateTaskRequest(BaseRequest):
-    def __init__(
-        self, task_id: int, title: Optional[str], contents: Optional[str]
-    ) -> None:
+    def __init__(self, task_id: int, title: str, contents: str) -> None:
         self.task_id = task_id
         self.title = title
         self.contents = contents
@@ -67,4 +65,4 @@ class UpdateTaskRequest(BaseRequest):
         )
 
     def to_dto(self) -> UpdateTaskDto:
-        return UpdateTaskDto(self.task_id, self.title, self.contents)
+        return UpdateTaskDto(self.task_id, 1, self.title, self.contents)

@@ -6,7 +6,7 @@ import yaml
 
 from app.__meta__ import __api_name__, __version__
 
-_swagger_definition = {}
+_swagger_definition: Dict[Any, Any] = {}
 
 
 def get_swagger_config() -> Dict[str, Dict[str, Any]]:

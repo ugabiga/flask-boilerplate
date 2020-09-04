@@ -19,12 +19,15 @@ def old_task(repo: TaskSQLRepository) -> Task:
 
 def test_update_task(repo: TaskSQLRepository, old_task: Task) -> None:
     task_id = old_task.id
+    user_id = 1
     new_task_title = "new title"
     new_task_contents = "new contents"
-    entity = Task(id=task_id, title=new_task_title, contents=new_task_contents)
+    entity = Task(
+        id=task_id, user_id=user_id, title=new_task_title, contents=new_task_contents
+    )
 
     repo.create_task(task_id, old_task.title, old_task.contents)
-    new_task = repo.update_task(entity)
+    new_task = repo.update_task(entity.id, entity.title, entity.contents)
 
     if not new_task:
         assert False
@@ -34,8 +37,8 @@ def test_update_task(repo: TaskSQLRepository, old_task: Task) -> None:
 
 
 def test_update_task_empty_dto(repo: TaskSQLRepository, old_task: Task) -> None:
-    entity = Task(id=old_task.id)
-    new_task = repo.update_task(entity)
+    entity = Task(id=old_task.id, user_id=1, title="new title", contents="new contents")
+    new_task = repo.update_task(entity.id)
 
     if not new_task:
         assert False
@@ -45,9 +48,9 @@ def test_update_task_empty_dto(repo: TaskSQLRepository, old_task: Task) -> None:
 
 
 def test_update_task_not_found(repo: TaskSQLRepository) -> None:
-    entity = Task(id=1)
+    entity = Task(id=1, user_id=1, title="title", contents="contents")
 
-    new_task = repo.update_task(entity)
+    new_task = repo.update_task(entity.id)
 
     if new_task:
         assert False

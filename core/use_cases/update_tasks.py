@@ -11,11 +11,16 @@ from core.use_case_outputs import Failure, Output, Success
 class UpdateTaskDto:
     task_id: int
     user_id: int
-    title: Optional[str] = None
-    contents: Optional[str] = None
+    title: str
+    contents: str
 
     def to_entity(self) -> Task:
-        return Task(id=self.task_id, title=self.title, contents=self.contents)
+        return Task(
+            id=self.task_id,
+            user_id=self.user_id,
+            title=self.title,
+            contents=self.contents,
+        )
 
 
 class UpdateTaskUseCase:
@@ -48,8 +53,11 @@ class UpdateTaskUseCase:
 
         return True
 
-    def _update_task(self, entity: UpdateTaskDto) -> Task:
-        new_task = self.task_repository.update_task(entity.to_entity())
+    def _update_task(self, dto: UpdateTaskDto) -> Task:
+        entity = dto.to_entity()
+        new_task = self.task_repository.update_task(
+            entity.id, entity.title, entity.contents
+        )
 
         if new_task is None:
             raise NotFoundError()

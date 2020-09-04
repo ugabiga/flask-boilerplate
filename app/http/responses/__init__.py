@@ -8,11 +8,11 @@ from core.use_case_outputs import Failure, Output
 
 
 def build_success_output_with_schema(
-    output: Output, schema_class: Type[ma.Schema] = None, many: bool = None
+    output: Output, schema_class: Type[ma.Schema], many: bool = None
 ) -> Tuple[Response, int]:
-    return build_success_response(
-        schema_class().dump(output.get_data(), many=many), output.get_meta()
-    )
+    output_schema = schema_class().dump(output.get_data(), many=many)
+
+    return build_success_response(output_schema, output.get_meta())
 
 
 def build_success_response(data: Any, meta: dict = None) -> Tuple[Response, int]:
@@ -39,3 +39,7 @@ def build_response(
 
     if isinstance(output, Failure):
         return build_failure_response(output)
+
+    return build_failure_response(
+        Failure.build_empty_internal_response_error("in_response_builder")
+    )

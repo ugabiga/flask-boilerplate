@@ -25,6 +25,7 @@ class BaseRequest(ABCRequest):
         try:
             cls._get_validation_schema()(dict_)
         except MultipleInvalid as exception:
+            print(exception)
             raise exception
 
         # noinspection PyArgumentList

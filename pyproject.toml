@@ -26,6 +26,7 @@ flasgger = "^0.9.4"
 Marshmallow = "^3.5.0"
 inject = "^4.1.2"
 pytest-snail = "^0.1.0"
+pydantic = "^1.6.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3.5"

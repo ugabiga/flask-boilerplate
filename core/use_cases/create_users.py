@@ -1,7 +1,6 @@
-from dataclasses import dataclass
-
 import inject
 
+from core.dto import BaseDto
 from core.entities.authentication import Authentication
 from core.entities.users import User
 from core.repositories.authentication import AuthenticationRepository
@@ -9,8 +8,7 @@ from core.repositories.users import UserRepository
 from core.use_case_outputs import Output, Success
 
 
-@dataclass
-class CreateUserDto:
+class CreateUserDto(BaseDto):
     nickname: str
     auth_category: str
     auth_identification: str

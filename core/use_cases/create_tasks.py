@@ -1,14 +1,12 @@
-from dataclasses import dataclass
-
 import inject
 
+from core.dto import BaseDto
 from core.entities.tasks import Task
 from core.repositories.tasks import TaskRepository
 from core.use_case_outputs import Failure, Output, Success
 
 
-@dataclass
-class CreateTaskDto:
+class CreateTaskDto(BaseDto):
     user_id: int
     title: str
     contents: str

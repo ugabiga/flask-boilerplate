@@ -50,6 +50,10 @@ class Failure(Output[_ValueType]):
         return cls(cls.NOT_FOUND_ERROR, error_message)
 
     @classmethod
+    def build_parameter_error(cls, error_message: str = "") -> Failure:
+        return cls(cls.PARAMETERS_ERROR, error_message)
+
+    @classmethod
     def build_not_authorized_error(cls, error_message: str = "") -> Failure:
         return cls(cls.NOT_AUTHORIZED_ERROR, error_message)
 

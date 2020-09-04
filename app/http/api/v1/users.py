@@ -3,10 +3,9 @@ from flask import jsonify, request
 
 from app.http.api import api
 from app.http.api.v1 import version_prefix
-from app.http.requests.v1.users import CreateUserRequest
 from app.http.responses import build_response
 from app.http.responses.users import UserSchema
-from core.use_cases.create_users import CreateUserUseCase
+from core.use_cases.create_users import CreateUserDto, CreateUserUseCase
 
 route_name = "users"
 
@@ -20,7 +19,7 @@ def index():
 @swag_from("")
 @api.route(f"{version_prefix}/{route_name}", methods=["POST"])
 def create():
-    dto = CreateUserRequest.from_dict(request.get_json()).to_dto()
+    dto = CreateUserDto.validate_from_dict(request.get_json())
     output = CreateUserUseCase().execute(dto)
     return build_response(output, UserSchema)
 

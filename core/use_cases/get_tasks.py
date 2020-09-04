@@ -1,15 +1,16 @@
-from dataclasses import dataclass
+from __future__ import annotations
+
 from typing import List
 
 import inject
 
+from core.dto import BaseDto
 from core.entities.tasks import Task
 from core.repositories.tasks import TaskRepository
 from core.use_case_outputs import Failure, Output, Success
 
 
-@dataclass
-class GetUserTasksDto:
+class GetUserTasksDto(BaseDto):
     user_id: int
     previous_id: int = 0
     limit: int = 10

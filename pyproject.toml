@@ -25,13 +25,16 @@ werkzeug = "0.16.0"
 flasgger = "^0.9.4"
 Marshmallow = "^3.5.0"
 inject = "^4.1.2"
-mypy = "^0.782"
+pytest-snail = "^0.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3.5"
 pytest-cov = "^2.8.1"
 isort = "^4.3.21"
 flake8 = "^3.7.9"
+mypy = "^0.782"
+sqlalchemy-stubs = "^0.3"
+pytest-snail = "^0.1.0"
 
 [build-system]
 requires = ["poetry>=0.12"]

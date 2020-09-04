@@ -1,5 +1,3 @@
-from typing import Optional
-
 import voluptuous as v
 
 from app.http.requests import BaseRequest

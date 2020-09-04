@@ -1,5 +1,5 @@
 [[package]]
-category = "dev"
+category = "main"
 description = "Atomic file writes."
 marker = "sys_platform == \"win32\""
 name = "atomicwrites"
@@ -30,7 +30,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "7.0"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Cross-platform colored terminal text."
 marker = "sys_platform == \"win32\""
 name = "colorama"
@@ -262,7 +262,7 @@ version = "19.5.0"
 retype = "*"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "More routines for operating on iterables, beyond itertools"
 name = "more-itertools"
 optional = false
@@ -270,7 +270,7 @@ python-versions = ">=3.5"
 version = "8.2.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Optional static typing for Python"
 name = "mypy"
 optional = false
@@ -286,7 +286,7 @@ typing-extensions = ">=3.7.4"
 dmypy = ["psutil (>=4.0)"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Experimental type system extensions for programs checked with the mypy typechecker."
 name = "mypy-extensions"
 optional = false
@@ -294,7 +294,7 @@ python-versions = "*"
 version = "0.4.3"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Core utilities for Python packages"
 name = "packaging"
 optional = false
@@ -314,7 +314,7 @@ python-versions = "*"
 version = "0.5.9"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "plugin and hook calling mechanisms for python"
 name = "pluggy"
 optional = false
@@ -330,7 +330,7 @@ version = ">=0.12"
 dev = ["pre-commit", "tox"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "library with cross-python path, ini-parsing, io, code, log facilities"
 name = "py"
 optional = false
@@ -354,7 +354,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.1.1"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Python parsing module"
 name = "pyparsing"
 optional = false
@@ -373,7 +373,7 @@ version = "0.16.0"
 six = "*"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "pytest: simple powerful testing with Python"
 name = "pytest"
 optional = false
@@ -412,6 +412,17 @@ pytest = ">=3.6"
 
 [package.extras]
 testing = ["fields", "hunter", "process-tests (2.0.2)", "six", "virtualenv"]
+
+[[package]]
+category = "main"
+description = "Plugin for adding a marker to slow running tests. 🐌"
+name = "pytest-snail"
+optional = false
+python-versions = ">=3.6"
+version = "0.1.0"
+
+[package.dependencies]
+pytest = ">=5.0.1"
 
 [[package]]
 category = "main"
@@ -466,6 +477,18 @@ postgresql_psycopg2cffi = ["psycopg2cffi"]
 pymysql = ["pymysql"]
 
 [[package]]
+category = "dev"
+description = "SQLAlchemy stubs and mypy plugin"
+name = "sqlalchemy-stubs"
+optional = false
+python-versions = "*"
+version = "0.3"
+
+[package.dependencies]
+mypy = ">=0.720"
+typing-extensions = ">=3.7.4"
+
+[[package]]
 category = "main"
 description = "a fork of Python 2 and 3 ast modules with type comment support"
 name = "typed-ast"
@@ -474,7 +497,7 @@ python-versions = "*"
 version = "1.4.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Backported and Experimental Type Hints for Python 3.5+"
 name = "typing-extensions"
 optional = false
@@ -490,7 +513,7 @@ python-versions = "*"
 version = "0.11.7"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Measures number of Terminal column cells of wide-character codes"
 name = "wcwidth"
 optional = false
@@ -524,7 +547,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "2e8a5a8e1ef2803f12224011541fa852307722620e657d048414359b5b37072b"
+content-hash = "ea018d9a490100504b4a747c43c40b7e8c5607f9d882f6591a10ce45b3e1b819"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -737,6 +760,10 @@ pytest-cov = [
     {file = "pytest-cov-2.8.1.tar.gz", hash = "sha256:cc6742d8bac45070217169f5f72ceee1e0e55b0221f54bcf24845972d3a47f2b"},
     {file = "pytest_cov-2.8.1-py2.py3-none-any.whl", hash = "sha256:cdbdef4f870408ebdbfeb44e63e07eb18bb4619fae852f6e760645fa36172626"},
 ]
+pytest-snail = [
+    {file = "pytest-snail-0.1.0.tar.gz", hash = "sha256:6ca089aa6745ab88ce25ee30813559f5b1323806db9cbbf843e61f8cfb41b60f"},
+    {file = "pytest_snail-0.1.0-py3-none-any.whl", hash = "sha256:c3628d1c4a3b6a92738460d1b20069b05a6231354467712d81e37bb4e4602bd0"},
+]
 pyyaml = [
     {file = "PyYAML-5.1.2-cp27-cp27m-win32.whl", hash = "sha256:5124373960b0b3f4aa7df1707e63e9f109b5263eca5976c66e08b1c552d4eaf8"},
     {file = "PyYAML-5.1.2-cp27-cp27m-win_amd64.whl", hash = "sha256:f81025eddd0327c7d4cfe9b62cf33190e1e736cc6e97502b3ec425f574b3e7a8"},
@@ -762,6 +789,10 @@ six = [
 ]
 sqlalchemy = [
     {file = "SQLAlchemy-1.3.8.tar.gz", hash = "sha256:2f8ff566a4d3a92246d367f2e9cd6ed3edeef670dcd6dda6dfdc9efed88bcd80"},
+]
+sqlalchemy-stubs = [
+    {file = "sqlalchemy-stubs-0.3.tar.gz", hash = "sha256:a3318c810697164e8c818aa2d90bac570c1a0e752ced3ec25455b309c0bee8fd"},
+    {file = "sqlalchemy_stubs-0.3-py3-none-any.whl", hash = "sha256:ca1250605a39648cc433f5c70cb1a6f9fe0b60bdda4c51e1f9a2ab3651daadc8"},
 ]
 typed-ast = [
     {file = "typed_ast-1.4.0-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:262c247a82d005e43b5b7f69aff746370538e176131c32dda9cb0f324d27141e"},

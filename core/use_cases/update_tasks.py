@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Optional
 
 from core.entities.tasks import Task
 from core.exceptions import NotAuthorizedError, NotFoundError

@@ -1,7 +1,7 @@
 import pytest
 from _pytest.fixtures import SubRequest  # type: ignore
 from flask.app import Flask
-from sqlalchemy.orm.scoping import scoped_session  # type: ignore
+from sqlalchemy.orm.scoping import scoped_session
 
 from app import create_app
 from app.extensions.database import sql as _db

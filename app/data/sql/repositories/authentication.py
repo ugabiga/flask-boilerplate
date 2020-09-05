@@ -26,7 +26,7 @@ class AuthenticationSQLRepository(AuthenticationRepository):
         return hashlib.sha512((secret + salt).encode("utf-8")).hexdigest()
 
     def find_auth(
-        self, category: str, identification: str, secret: str
+        self, category: str, identification: str
     ) -> Optional[AuthenticationEntity]:
         authentication = (
             sql_session.query(Authentication)

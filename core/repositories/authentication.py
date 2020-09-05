@@ -9,6 +9,6 @@ class AuthenticationRepository(ABC):
         raise NotImplementedError()
 
     def find_auth(
-        self, category: str, identification: str, secret: str
+        self, category: str, identification: str
     ) -> Optional[AuthenticationEntity]:
         raise NotImplementedError()

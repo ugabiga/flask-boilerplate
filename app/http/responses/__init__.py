@@ -24,7 +24,7 @@ def build_success_response(data: Any, meta: dict = None) -> Tuple[Response, int]
     return jsonify(response), 200
 
 
-def build_failure_response(output: Failure):
+def build_failure_response(output: Failure) -> Tuple[Response, int]:
     return jsonify(error=output.get_type(), error_message=output.get_message()), 400
 
 

@@ -1,4 +1,5 @@
 import hashlib
+from typing import Optional
 
 from app.data.sql.models.authentication import Authentication
 from app.extensions.database import sql_session
@@ -23,3 +24,15 @@ class AuthenticationSQLRepository(AuthenticationRepository):
         salt = "secret"
 
         return hashlib.sha512((secret + salt).encode("utf-8")).hexdigest()
+
+    def find_auth(
+        self, category: str, identification: str, secret: str
+    ) -> Optional[AuthenticationEntity]:
+        authentication = (
+            sql_session.query(Authentication)
+            .filter(Authentication.identification == identification)
+            .filter(Authentication.category == category)
+            .one_or_none()
+        )
+
+        return None if authentication is None else authentication.to_entity()

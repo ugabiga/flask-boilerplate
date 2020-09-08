@@ -3,7 +3,7 @@ from unittest import mock
 from pydantic.error_wrappers import ValidationError
 
 from core.entities.tasks import Task
-from core.use_cases.get_tasks import GetTasksByUserUseCase, GetUserTasksDto
+from core.use_cases.get_tasks import GetTasksByUserUseCase, GetUserTaskDto
 
 
 def test_get_user_tasks_dto_validation() -> None:
@@ -13,7 +13,7 @@ def test_get_user_tasks_dto_validation() -> None:
         "limit": 1,
     }
     try:
-        GetUserTasksDto.validate_from_dict(raw_input)
+        GetUserTaskDto.validate_from_dict(raw_input)
     except ValidationError:
         assert True
         return
@@ -29,7 +29,7 @@ def test_get_all_tasks_with_pagination() -> None:
         Task(4, 4, "4", "contents"),
     ]
 
-    dto = GetUserTasksDto(user_id=1)
+    dto = GetUserTaskDto(user_id=1)
     repo = mock.Mock()
     repo.get_tasks.return_value = mock_tasks
 

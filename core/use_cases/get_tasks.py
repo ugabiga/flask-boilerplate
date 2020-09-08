@@ -10,7 +10,7 @@ from core.repositories.tasks import TaskRepository
 from core.use_case_outputs import Failure, Output, Success
 
 
-class GetUserTasksDto(BaseDto):
+class GetUserTaskDto(BaseDto):
     user_id: int
     previous_id: int = 0
     limit: int = 10
@@ -21,7 +21,7 @@ class GetTasksByUserUseCase:
     def __init__(self, task_repository: TaskRepository) -> None:
         self.task_repository = task_repository
 
-    def execute(self, dto: GetUserTasksDto) -> Output[List[Task]]:
+    def execute(self, dto: GetUserTaskDto) -> Output[List[Task]]:
         tasks = self.task_repository.get_tasks(
             previous_id=dto.previous_id, limit=dto.limit
         )

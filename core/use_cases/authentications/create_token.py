@@ -10,7 +10,7 @@ class CreateTokenUseCase:
     def __init__(self, repository: AuthenticationRepository) -> None:
         self.__repository = repository
 
-    def execute(self, category: str, identification: str, secret: str) -> Output:
+    def execute(self, category: str, identification: str, secret: str) -> Output[str]:
         authentication = self.__repository.find_auth(category, identification)
 
         if authentication is None:

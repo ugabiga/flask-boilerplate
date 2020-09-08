@@ -9,7 +9,7 @@ from app.http.api.v1 import version_prefix
 from app.http.responses import build_response
 from app.http.responses.tasks import TaskSchema
 from core.use_cases.create_tasks import CreateTaskDto, CreateTaskUseCase
-from core.use_cases.get_tasks import GetTasksByUserUseCase, GetUserTasksDto
+from core.use_cases.get_tasks import GetTasksByUserUseCase, GetUserTaskDto
 
 route_name = "tasks"
 
@@ -19,7 +19,7 @@ route_name = "tasks"
 def index() -> Tuple[Response, int]:
     request_dict: dict = request.args.to_dict()
     request_dict.update({"user_id": 1})
-    dto = GetUserTasksDto.validate_from_dict(request_dict)
+    dto = GetUserTaskDto.validate_from_dict(request_dict)
     output = GetTasksByUserUseCase().execute(dto)
     return build_response(output, TaskSchema, True)
 

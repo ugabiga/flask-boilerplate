@@ -3,3 +3,6 @@ run:
 
 check:
 	./scripts/check.sh
+
+test:
+	pytest --cov=core --cov=app

@@ -133,7 +133,7 @@ dmypy.json
 .idea/sonarlint/
 .idea/vcs.xml
 .idea/dataSources.xml
-.idea/dictionaries/
+.idea/dictionaries/ugabiga.xml
 
 # monkey type
 monkeytype.sqlite3
@@ -146,4 +146,3 @@ monkeytype.sqlite3
 
 # custom
 test.db
-/.stubs/

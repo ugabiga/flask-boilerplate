@@ -1,9 +1,9 @@
-from app.data.sql.repositories.task import TaskSQLRepository
+from core.repositories.tasks import TaskRepository
 from tests.helper.request import RequestClient
 
 
 # noinspection PyUnusedLocal
-def test_call_index(client: RequestClient, task_repo: TaskSQLRepository) -> None:
+def test_call_index(client: RequestClient, task_repo: TaskRepository) -> None:
     [task_repo.create_task(i, f"{i}", f"{i}") for i in range(0, 3)]
 
     resp = client.get("/v1/tasks?previous_id=0&limit=10")
@@ -19,7 +19,7 @@ def test_call_index(client: RequestClient, task_repo: TaskSQLRepository) -> None
 
 
 def test_validation_fail_call_index(
-    client: RequestClient, task_repo: TaskSQLRepository
+    client: RequestClient, task_repo: TaskRepository
 ) -> None:
     resp = client.get("/v1/tasks?previous_id=A&limit=10")
     assert resp.get_status_code() == 400

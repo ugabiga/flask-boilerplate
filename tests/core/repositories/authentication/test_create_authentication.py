@@ -1,8 +1,8 @@
-from app.data.sql.repositories.authentication import AuthenticationSQLRepository
 from core.entities.authentication import Authentication
+from core.repositories.authentication import AuthenticationRepository
 
 
-def test_create_authentication(repo: AuthenticationSQLRepository) -> None:
+def test_create_authentication(repo: AuthenticationRepository) -> None:
     expected_auth = Authentication(
         user_id=1,
         category=Authentication.EMAIL,

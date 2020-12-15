@@ -1,7 +1,7 @@
-from app.data.sql.repositories.users import UserSQLRepository
+from core.repositories.users import UserRepository
 
 
-def test_create_user(repo: UserSQLRepository) -> None:
+def test_create_user(repo: UserRepository) -> None:
     expected_nickname = "sample"
     user = repo.create_user(expected_nickname)
 

@@ -1,8 +1,8 @@
 from sqlalchemy import func
 
-from app.data.sql.models import BaseModel
 from app.extensions.database import sql as db
 from core.entities.users import User as UserEntity
+from core.models import BaseModel
 
 
 class User(db.Model, BaseModel):

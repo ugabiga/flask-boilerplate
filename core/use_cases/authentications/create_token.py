@@ -2,7 +2,7 @@ import inject
 import jwt
 
 from core.repositories.authentication import AuthenticationRepository
-from core.use_case_outputs import Failure, Output, Success
+from core.use_cases.output import Failure, Output, Success
 
 
 class CreateTokenUseCase:

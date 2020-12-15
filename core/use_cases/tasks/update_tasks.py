@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from core.entities.tasks import Task
 from core.exceptions import NotAuthorizedError, NotFoundError
 from core.repositories.tasks import TaskRepository
-from core.use_case_outputs import Failure, Output, Success
+from core.use_cases.output import Failure, Output, Success
 
 
 @dataclass

@@ -2,7 +2,7 @@ from typing import Dict
 
 import jwt
 
-from core.use_case_outputs import Output, Success
+from core.use_cases.output import Output, Success
 
 
 class ValidateTokenUseCase:

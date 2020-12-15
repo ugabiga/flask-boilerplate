@@ -3,7 +3,7 @@ from flask import Flask
 from app.http.responses import build_response
 from app.http.responses.tasks import TaskSchema
 from core.entities.tasks import Task
-from core.use_case_outputs import Success
+from core.use_cases.output import Success
 
 
 def test_build_response(app: Flask) -> None:

@@ -6,7 +6,7 @@ from flask.json import jsonify
 from flask.wrappers import Response
 from pydantic import ValidationError
 
-from core.use_case_outputs import Failure
+from core.use_cases.output import Failure
 
 error = Blueprint("errors", __name__)
 

@@ -3,7 +3,7 @@ from unittest import mock
 from pydantic.error_wrappers import ValidationError
 
 from core.entities.tasks import Task
-from core.use_cases.get_tasks import GetTasksByUserUseCase, GetUserTaskDto
+from core.use_cases.tasks.get_tasks import GetTasksByUserUseCase, GetUserTaskDto
 
 
 def test_get_user_tasks_dto_validation() -> None:

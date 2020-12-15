@@ -5,7 +5,7 @@ from core.entities.authentication import Authentication
 from core.entities.users import User
 from core.repositories.authentication import AuthenticationRepository
 from core.repositories.users import UserRepository
-from core.use_case_outputs import Output, Success
+from core.use_cases.output import Output, Success
 
 
 class CreateUserDto(BaseDto):

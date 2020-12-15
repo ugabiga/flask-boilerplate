@@ -1,7 +1,7 @@
 from unittest import mock
 
 from core.entities.tasks import Task
-from core.use_cases.update_tasks import UpdateTaskDto, UpdateTaskUseCase
+from core.use_cases.tasks.update_tasks import UpdateTaskDto, UpdateTaskUseCase
 
 
 def test_update_task() -> None:

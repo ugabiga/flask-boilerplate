@@ -8,8 +8,8 @@ from app.http.api import api
 from app.http.api.v1 import version_prefix
 from app.http.responses import build_response
 from app.http.responses.tasks import TaskSchema
-from core.use_cases.create_tasks import CreateTaskDto, CreateTaskUseCase
-from core.use_cases.get_tasks import GetTasksByUserUseCase, GetUserTaskDto
+from core.use_cases.tasks.create_tasks import CreateTaskDto, CreateTaskUseCase
+from core.use_cases.tasks.get_tasks import GetTasksByUserUseCase, GetUserTaskDto
 
 route_name = "tasks"
 

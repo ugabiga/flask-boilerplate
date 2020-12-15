@@ -4,7 +4,7 @@ import marshmallow as ma
 from flask import jsonify
 from flask.wrappers import Response
 
-from core.use_case_outputs import Failure, Output
+from core.use_cases.output import Failure, Output
 
 
 def build_success_output_with_schema(

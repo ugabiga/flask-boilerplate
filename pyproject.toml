@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "flask-clean-architecture"
+name = "flask-boilerplate"
 version = "0.1.0"
 description = ""
 authors = ["ugabiga <ugabiga@gmail.com>"]

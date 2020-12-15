@@ -1,6 +1,6 @@
 import inject
 
-from core.dto import BaseDto
+from core.dtos.base import BaseDto
 from core.entities.authentication import Authentication
 from core.entities.users import User
 from core.repositories.authentication import AuthenticationRepository

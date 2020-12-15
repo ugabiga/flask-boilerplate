@@ -1,6 +1,6 @@
 import inject
 
-from core.dto import BaseDto
+from core.dtos.base import BaseDto
 from core.entities.tasks import Task
 from core.repositories.tasks import TaskRepository
 from core.use_cases.output import Failure, Output, Success

@@ -19,7 +19,7 @@ class AuthenticationRepository:
 
         return new_auth.to_entity()
 
-    def _encoding_secret(self, secret: str) -> str:
+    def __encoding_secret(self, secret: str) -> str:
         salt = "secret"
 
         return hashlib.sha512((secret + salt).encode("utf-8")).hexdigest()

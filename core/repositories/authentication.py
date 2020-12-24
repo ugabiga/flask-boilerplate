@@ -1,7 +1,7 @@
 import hashlib
 from typing import Optional
 
-from app.extensions.database import sql_session
+from app.extensions.database import session
 from core.entities.authentication import Authentication as AuthenticationEntity
 from core.models.authentication import Authentication
 
@@ -14,8 +14,8 @@ class AuthenticationRepository:
             identification=auth.identification,
             secret=auth.secret,
         )
-        sql_session.add(new_auth)
-        sql_session.commit()
+        session.add(new_auth)
+        session.commit()
 
         return new_auth.to_entity()
 
@@ -28,7 +28,7 @@ class AuthenticationRepository:
         self, category: str, identification: str
     ) -> Optional[AuthenticationEntity]:
         authentication = (
-            sql_session.query(Authentication)
+            session.query(Authentication)
             .filter(Authentication.identification == identification)
             .filter(Authentication.category == category)
             .one_or_none()

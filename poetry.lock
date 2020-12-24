@@ -472,18 +472,6 @@ postgresql_psycopg2cffi = ["psycopg2cffi"]
 pymysql = ["pymysql"]
 
 [[package]]
-name = "sqlalchemy-stubs"
-version = "0.3"
-description = "SQLAlchemy stubs and mypy plugin"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-mypy = ">=0.720"
-typing-extensions = ">=3.7.4"
-
-[[package]]
 name = "termcolor"
 version = "1.1.0"
 description = "ANSII Color formatting for output in terminal."
@@ -539,7 +527,7 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "1780d56caa2f47e9912a10759e9611d6f8cd81618925495dbab53b56d3b99492"
+content-hash = "d89e00d6942407173882110ee0d358aa751b8a471ee7bca8b9def88e07e3ce7b"
 
 [metadata.files]
 atomicwrites = [
@@ -806,10 +794,6 @@ six = [
 ]
 sqlalchemy = [
     {file = "SQLAlchemy-1.3.8.tar.gz", hash = "sha256:2f8ff566a4d3a92246d367f2e9cd6ed3edeef670dcd6dda6dfdc9efed88bcd80"},
-]
-sqlalchemy-stubs = [
-    {file = "sqlalchemy-stubs-0.3.tar.gz", hash = "sha256:a3318c810697164e8c818aa2d90bac570c1a0e752ced3ec25455b309c0bee8fd"},
-    {file = "sqlalchemy_stubs-0.3-py3-none-any.whl", hash = "sha256:ca1250605a39648cc433f5c70cb1a6f9fe0b60bdda4c51e1f9a2ab3651daadc8"},
 ]
 termcolor = [
     {file = "termcolor-1.1.0.tar.gz", hash = "sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"},

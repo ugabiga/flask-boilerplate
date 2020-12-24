@@ -1,15 +1,15 @@
-import sqlalchemy as db
-
-from app.extensions.database import sql
+from app.extensions.database import sql as db
 from core.entities.authentication import Authentication as AuthenticationEntity
 
 
-class Authentication(sql.Model):
+class Authentication(db.Model):
     __tablename__ = "authentications"
 
     # noinspection PyTypeChecker
     user_id = db.Column(
-        db.BigInteger().with_variant(db.Integer, "sqlite"), primary_key=True
+        db.BigInteger().with_variant(db.Integer, "sqlite"),
+        db.ForeignKey("users.id"),
+        primary_key=True,
     )
     category = db.Column(db.String(10), primary_key=True)
     identification = db.Column(db.String())

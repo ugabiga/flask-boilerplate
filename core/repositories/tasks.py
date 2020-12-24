@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from app.extensions.database import sql_session
+from app.extensions.database import session
 from core.entities.tasks import Task as TaskEntity
 from core.models.task import Task
 
@@ -8,8 +8,8 @@ from core.models.task import Task
 class TaskRepository:
     def create_task(self, user_id: int, title: str, contents: str) -> TaskEntity:
         task = Task(user_id=user_id, title=title, contents=contents)
-        sql_session.add(task)
-        sql_session.commit()
+        session.add(task)
+        session.commit()
 
         return task.to_entity()
 
@@ -23,7 +23,7 @@ class TaskRepository:
 
         task.title = title if title else task.title
         task.contents = contents if contents else task.contents
-        sql_session.commit()
+        session.commit()
 
         return task.to_entity()
 
@@ -36,7 +36,7 @@ class TaskRepository:
         return task.to_entity()
 
     def get_tasks(self, previous_id: int, limit: int) -> List[TaskEntity]:
-        query = sql_session.query(Task)
+        query = session.query(Task)
 
         if previous_id > 0:
             query = query.filter(Task.id > previous_id)
@@ -46,11 +46,11 @@ class TaskRepository:
         return [task.to_entity() for task in tasks]
 
     def delete_all_tasks(self) -> bool:
-        sql_session.query(Task).delete()
-        sql_session.commit()
+        session.query(Task).delete()
+        session.commit()
 
         return True
 
     def _one_or_none(self, task_id: int) -> Task:
-        task = sql_session.query(Task).filter(Task.id == task_id).one_or_none()
+        task = session.query(Task).filter(Task.id == task_id).one_or_none()
         return task

@@ -1,11 +1,9 @@
-from sqlalchemy.exc import InvalidRequestError
-
 from app.extensions.database import sql as db
 from core.entities.users import User as UserEntity
-from core.models import BaseModel
+from core.models.base import BaseModel
 
 
-class UserModel(db.Model):
+class UserModel(BaseModel):
     __tablename__ = "users"
 
     # Columns
@@ -19,11 +17,8 @@ class UserModel(db.Model):
 
     def to_entity(self) -> UserEntity:
         user = UserEntity(id=self.id, nickname=self.nickname)
-        try:
-            user.authentications = [
-                authentication for authentication in self.authentications
-            ]
-        except InvalidRequestError:
-            user.authentications = []
+        user.authentications = self._attach_related_entities(lambda: [
+            authentication.to_entity() for authentication in self.authentications
+        ])
 
         return user

@@ -5,7 +5,7 @@ from core.entities.users import User as UserEntity
 from core.models import BaseModel
 
 
-class User(db.Model):
+class UserModel(db.Model):
     __tablename__ = "users"
 
     # Columns
@@ -15,7 +15,7 @@ class User(db.Model):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     # Relationship
-    authentications = db.relationship("Authentication", lazy="raise")
+    authentications = db.relationship("AuthenticationModel", lazy="raise")
 
     def to_entity(self) -> UserEntity:
         user = UserEntity(id=self.id, nickname=self.nickname)

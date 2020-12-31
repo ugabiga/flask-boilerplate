@@ -4,7 +4,7 @@ from app.extensions.database import sql
 from core.entities.tasks import Task as TaskEntity
 
 
-class Task(sql.Model):
+class TaskModel(sql.Model):
     __tablename__ = "tasks"
     __table_args__ = {"sqlite_autoincrement": True}
 

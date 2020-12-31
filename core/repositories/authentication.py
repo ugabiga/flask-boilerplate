@@ -3,12 +3,12 @@ from typing import Optional
 
 from app.extensions.database import session
 from core.entities.authentication import Authentication as AuthenticationEntity
-from core.models.authentication import Authentication
+from core.models.authentication import AuthenticationModel
 
 
 class AuthenticationRepository:
     def create_auth(self, auth: AuthenticationEntity) -> AuthenticationEntity:
-        new_auth = Authentication(
+        new_auth = AuthenticationModel(
             user_id=auth.user_id,
             category=auth.category,
             identification=auth.identification,
@@ -28,9 +28,9 @@ class AuthenticationRepository:
         self, category: str, identification: str
     ) -> Optional[AuthenticationEntity]:
         authentication = (
-            session.query(Authentication)
-            .filter(Authentication.identification == identification)
-            .filter(Authentication.category == category)
+            session.query(AuthenticationModel)
+            .filter(AuthenticationModel.identification == identification)
+            .filter(AuthenticationModel.category == category)
             .one_or_none()
         )
 

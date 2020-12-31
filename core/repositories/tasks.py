@@ -2,12 +2,12 @@ from typing import List, Optional
 
 from app.extensions.database import session
 from core.entities.tasks import Task as TaskEntity
-from core.models.task import Task
+from core.models.task import TaskModel
 
 
 class TaskRepository:
     def create_task(self, user_id: int, title: str, contents: str) -> TaskEntity:
-        task = Task(user_id=user_id, title=title, contents=contents)
+        task = TaskModel(user_id=user_id, title=title, contents=contents)
         session.add(task)
         session.commit()
 
@@ -36,21 +36,21 @@ class TaskRepository:
         return task.to_entity()
 
     def get_tasks(self, previous_id: int, limit: int) -> List[TaskEntity]:
-        query = session.query(Task)
+        query = session.query(TaskModel)
 
         if previous_id > 0:
-            query = query.filter(Task.id > previous_id)
+            query = query.filter(TaskModel.id > previous_id)
 
-        tasks = query.order_by(Task.id).limit(limit).all()
+        tasks = query.order_by(TaskModel.id).limit(limit).all()
 
         return [task.to_entity() for task in tasks]
 
     def delete_all_tasks(self) -> bool:
-        session.query(Task).delete()
+        session.query(TaskModel).delete()
         session.commit()
 
         return True
 
-    def _one_or_none(self, task_id: int) -> Task:
-        task = session.query(Task).filter(Task.id == task_id).one_or_none()
+    def _one_or_none(self, task_id: int) -> TaskModel:
+        task = session.query(TaskModel).filter(TaskModel.id == task_id).one_or_none()
         return task

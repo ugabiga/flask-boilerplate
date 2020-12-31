@@ -2,7 +2,7 @@ from app.extensions.database import sql as db
 from core.entities.authentication import Authentication as AuthenticationEntity
 
 
-class Authentication(db.Model):
+class AuthenticationModel(db.Model):
     __tablename__ = "authentications"
 
     # noinspection PyTypeChecker

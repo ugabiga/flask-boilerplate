@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from app.extensions.database import session
+from app.extensions.database import session, sql_client
 from core.entities.tasks import Task as TaskEntity
 from core.models.task import TaskModel
 
@@ -8,8 +8,7 @@ from core.models.task import TaskModel
 class TaskRepository:
     def create_task(self, user_id: int, title: str, contents: str) -> TaskEntity:
         task = TaskModel(user_id=user_id, title=title, contents=contents)
-        session.add(task)
-        session.commit()
+        sql_client.add(task)
 
         return task.to_entity()
 

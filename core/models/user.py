@@ -17,8 +17,10 @@ class UserModel(BaseModel):
 
     def to_entity(self) -> UserEntity:
         user = UserEntity(id=self.id, nickname=self.nickname)
-        user.authentications = self._attach_related_entities(lambda: [
-            authentication.to_entity() for authentication in self.authentications
-        ])
+        user.authentications = self._attach_related_entities(
+            lambda: [
+                authentication.to_entity() for authentication in self.authentications
+            ]
+        )
 
         return user

@@ -1,7 +1,7 @@
 import hashlib
 from typing import Optional
 
-from app.extensions.database import session
+from app.extensions.database import session, sql_client
 from core.entities.authentication import Authentication as AuthenticationEntity
 from core.models.authentication import AuthenticationModel
 
@@ -14,8 +14,7 @@ class AuthenticationRepository:
             identification=auth.identification,
             secret=auth.secret,
         )
-        session.add(new_auth)
-        session.commit()
+        sql_client.add(new_auth)
 
         return new_auth.to_entity()
 

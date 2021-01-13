@@ -1,10 +1,10 @@
 import sqlalchemy as db
 
-from app.extensions.database import sql
 from core.entities.tasks import Task as TaskEntity
+from core.models.base import BaseModel
 
 
-class TaskModel(sql.Model):
+class TaskModel(BaseModel):
     __tablename__ = "tasks"
     __table_args__ = {"sqlite_autoincrement": True}
 

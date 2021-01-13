@@ -1,22 +1,22 @@
 import hashlib
 from typing import Optional
 
-from app.extensions.database import session, sql_client
+from app.extensions.sql_client import SQLClient
 from core.entities.authentication import Authentication as AuthenticationEntity
 from core.models.authentication import AuthenticationModel
 
 
 class AuthenticationRepository:
     def create_auth(self, auth: AuthenticationEntity) -> AuthenticationEntity:
-        new_auth = AuthenticationModel(
+        new_auth: AuthenticationModel = AuthenticationModel(
             user_id=auth.user_id,
             category=auth.category,
             identification=auth.identification,
-            secret=auth.secret,
+            secret=self.__encoding_secret(auth.secret),
         )
-        sql_client.add(new_auth)
+        auth = SQLClient(new_auth).create()
 
-        return new_auth.to_entity()
+        return auth.to_entity()
 
     def __encoding_secret(self, secret: str) -> str:
         salt = "secret"
@@ -27,7 +27,7 @@ class AuthenticationRepository:
         self, category: str, identification: str
     ) -> Optional[AuthenticationEntity]:
         authentication = (
-            session.query(AuthenticationModel)
+            SQLClient(AuthenticationModel)
             .filter(AuthenticationModel.identification == identification)
             .filter(AuthenticationModel.category == category)
             .one_or_none()

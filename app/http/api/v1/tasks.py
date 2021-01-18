@@ -16,7 +16,7 @@ route_name = "tasks"
 
 @swag_from("./task_index.yml")
 @api.route(f"{version_prefix}/{route_name}")
-def index() -> Tuple[Response, int]:
+def read_tasks() -> Tuple[Response, int]:
     request_dict: dict = request.args.to_dict()
     request_dict.update({"user_id": 1})
     dto = GetUserTaskDto.validate_from_dict(request_dict)
@@ -25,22 +25,22 @@ def index() -> Tuple[Response, int]:
 
 
 @api.route(f"{version_prefix}/{route_name}/<int:task_id>")
-def detail(task_id):
+def read_one_task(task_id):
     return jsonify({"result": True})
 
 
 @api.route(f"{version_prefix}/{route_name}", methods=["POST"])
-def create():
+def create_task():
     dto = CreateTaskDto.validate_from_dict(request.get_json())
     output = CreateTaskUseCase().execute(dto)
     return build_response(output, TaskSchema)
 
 
 @api.route(f"{version_prefix}/{route_name}", methods=["PUT"])
-def update():
+def update_task():
     return jsonify({"result": True})
 
 
 @api.route(f"{version_prefix}/{route_name}", methods=["DELETE"])
-def delete():
+def delete_task():
     return jsonify({"result": True})

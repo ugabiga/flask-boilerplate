@@ -25,8 +25,8 @@ class TaskRepository:
 
         SQLClient(TaskModel).filter(TaskModel.id == task_id).update(
             {
-                "title": task.title,
-                "contents": task.contents,
+                TaskModel.title: task.title,
+                TaskModel.contents: task.contents,
             }
         )
 

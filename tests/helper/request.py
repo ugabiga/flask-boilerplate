@@ -23,3 +23,10 @@ class RequestClient:
     def get(self, url: str = "") -> ResponseHelper:
         resp = self._client.get(url, content_type="application/json")
         return ResponseHelper(resp)
+
+    def post(self, url: str, data: dict) -> ResponseHelper:
+        resp = self._client.post(
+            url, data=json.dumps(data), content_type="application/json"
+        )
+
+        return ResponseHelper(resp)

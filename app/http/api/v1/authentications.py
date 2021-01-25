@@ -1,3 +1,7 @@
+from typing import Tuple
+
+from flask.wrappers import Response
+
 from app.http.api import api
 from app.http.api.v1 import version_prefix
 from app.http.requests import validate_request
@@ -12,5 +16,5 @@ route_name = "authentications"
 
 @api.route(f"{version_prefix}/{route_name}", methods=["POST"])
 @validate_request(CreateTokenDto)
-def create_token(dto: CreateTokenDto):
+def create_token(dto: CreateTokenDto) -> Tuple[Response, int]:
     return build_response(CreateTokenUseCase().execute(dto))

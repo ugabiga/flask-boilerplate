@@ -57,5 +57,5 @@ class SQLClient(Generic[T]):
         self._close()
         return True
 
-    def _close(self):
+    def _close(self) -> None:
         self.__q = None

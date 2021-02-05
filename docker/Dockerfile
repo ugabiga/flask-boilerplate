@@ -23,11 +23,11 @@ RUN pip install --upgrade pip setuptools
 RUN pip install poetry
 
 # Set directory
-RUN mkdir /app
-WORKDIR /app
+RUN mkdir /project
+WORKDIR /project
 
 # Install python dependencies
-COPY poetry.lock pyproject.toml /app/
+COPY poetry.lock pyproject.toml /project/
 RUN poetry config virtualenvs.create false
 RUN poetry install
 RUN rm poetry.lock pyproject.toml

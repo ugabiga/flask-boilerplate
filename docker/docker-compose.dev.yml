@@ -12,7 +12,7 @@ services:
     environment:
       - "ENV=development"
     volumes:
-      - ../:/app
+      - ../:/project
     ports:
       - "8800:80"
     networks:

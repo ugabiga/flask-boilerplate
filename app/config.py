@@ -12,7 +12,9 @@ class Config:
     # Database
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_RECORD_QUERIES = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+    SQLALCHEMY_DATABASE_URI = (
+        os.environ.get("SQLALCHEMY_DATABASE_URI") or "sqlite:///:memory:"
+    )
 
     # CSRF
     WTF_CSRF_ENABLED = True
@@ -32,6 +34,10 @@ class TestingConfig(Config):
 
 
 def init_config(app: Flask, config_name: str) -> None:
-    config = {"default": DevelopmentConfig, "testing": TestingConfig}
+    config = {
+        "default": DevelopmentConfig,
+        "development": DevelopmentConfig,
+        "testing": TestingConfig,
+    }
     app_config = config[config_name]
     app.config.from_object(app_config)

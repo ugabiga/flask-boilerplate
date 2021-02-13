@@ -14,7 +14,12 @@ class UserRepository:
 
         return user.to_entity()
 
-    def read_task(self, user_id: int) -> Optional[UserEntity]:
+    def update_user(self, user_id: int, nickname: str):
+        SQLClient(UserModel).filter(UserModel.id == user_id).update(
+            {"nickname": nickname}
+        )
+
+    def get_user(self, user_id: int) -> Optional[UserEntity]:
         user = SQLClient(UserModel).filter(UserModel.id == user_id).one_or_none()
 
         if user is None:

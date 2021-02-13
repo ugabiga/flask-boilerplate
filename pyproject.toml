@@ -29,6 +29,7 @@ pytest-snail = "^0.1.0"
 pydantic = "^1.6.1"
 pyjwt = "^1.7.1"
 kafka-python = "^2.0.2"
+psycopg2 = "^2.8.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3.5"

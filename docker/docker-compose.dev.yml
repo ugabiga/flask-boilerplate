@@ -11,10 +11,30 @@ services:
     command: "gunicorn -w 2 -b :80 --access-logfile - --error-logfile - application:app --reload"
     environment:
       - "ENV=development"
+      - "SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://user:password@app-db:5432/app"
     volumes:
       - ../:/project
     ports:
       - "8800:80"
+    depends_on:
+      - app-kafka
+      - app-db
+    networks:
+      - app-local
+
+  app-db:
+    container_name: app-db
+    image: 'postgres:11'
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=app
+    ports:
+      - '5432:5432'
+    command:
+      - "postgres"
+      - "-c"
+      - "max_locks_per_transaction=10000"
     networks:
       - app-local
 

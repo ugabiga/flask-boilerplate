@@ -2,15 +2,16 @@ import json
 
 from kafka import KafkaProducer
 
+from core.messages.host_resolver import MessageHostResolver
+
 
 class MessageProducer:
-    def __init__(self):
-        # noinspection PyTypeChecker
-        self.__producer: KafkaProducer = None
-
-    def init_app(self, env):
-        self.__producer = KafkaProducer(
-            bootstrap_servers="app-kafka:9093",
+    def __init__(self, config: dict):
+        bootstrap_servers = MessageHostResolver.make_from_dict(
+            config
+        ).get_bootstrap_servers()
+        self.__producer: KafkaProducer = KafkaProducer(
+            bootstrap_servers=bootstrap_servers,
             compression_type="gzip",
             value_serializer=lambda x: json.dumps(x).encode("utf-8"),
         )

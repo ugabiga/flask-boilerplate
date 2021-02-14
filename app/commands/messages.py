@@ -1,55 +1,61 @@
 from datetime import datetime
-from time import sleep
 
 import click
 import inject
 from flask import current_app
+from pydantic import ValidationError
 
 from app.extensions.database import sql
-from core.repositories.tasks import TaskRepository
+from core.messages.consumer import MessageConsumer, MessageConsumerDto
+from core.messages.producer import MessageProducer
 from core.repositories.users import UserRepository
+from core.use_cases.users.update_user import UpdateUserDto, UpdateUserUseCase
 
 
 @current_app.cli.command("data")
 def create_data():
     sql.drop_all()
     sql.create_all()
-    user_repo = inject.instance(UserRepository)
-    task_repo = inject.instance(TaskRepository)
 
-    user = user_repo.create_user("sample")
-    task_repo.create_task(user_id=user.id, title="sample", contents="contents")
+    user_repo = inject.instance(UserRepository)
+    user_repo.create_user("sample")
 
 
 @click.argument("topic")
 @current_app.cli.command("producer")
 def run_producer(topic: str):
-    from core.messages.producer import MessageProducer
-
-    producer = MessageProducer()
-    producer.init_app("")
-    while True:
-        producer.send(f"test_{topic}", value={"result": True})
-        print(f"sending topic=={topic} at=={datetime.now()}")
-        sleep(0.1)
+    producer = MessageProducer(current_app.config)
+    producer.send(f"{topic}", value={"user_id": 1, "nickname": "sample nickname"})
+    print(f"sending topic=={topic} at=={datetime.now()}")
 
 
 @click.argument("topic")
 @current_app.cli.command("consumer")
 def run_consumer(topic: str):
-    from core.messages.consumer import MessageConsumer
-
-    consumer = MessageConsumer()
-    consumer.init_app("", f"test_{topic}")
+    consumer = MessageConsumer(current_app.config)
+    consumer.set_topics(
+        topics=f"{topic}",
+    )
 
     while True:
         message = consumer.get_message()
-
         if message is None:
             print(".")
             continue
 
-        print(f"processing topic=={topic} at=={message.timestamp}")
-        user_repo = inject.instance(UserRepository)
-        user_repo.update_user(1, f"new_{topic}")
+        try:
+            execute_by_consumer(topic, message)
+        except ValidationError as e:
+            print(f"validation error == {e}")
+
         consumer.commit_message(message)
+
+
+def execute_by_consumer(topic: str, message: MessageConsumerDto):
+    if topic in ["1", "2"]:
+        dto = UpdateUserDto.validate_from_dict(message.value)
+        output = inject.instance(UpdateUserUseCase).execute(dto)
+        print(output.get_data())
+    else:
+        print("wrong topic")
+        return

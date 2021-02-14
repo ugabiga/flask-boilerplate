@@ -19,6 +19,12 @@ class Config:
     # CSRF
     WTF_CSRF_ENABLED = True
 
+    # Message
+    MESSAGE_BASE_URL = os.environ.get("MESSAGE_BASE_URL", "app-kafka:9093")
+    MESSAGE_CONSUMER_GROUP_ID = os.environ.get(
+        "MESSAGE_CONSUMER_GROUP_ID", "message_group_1"
+    )
+
 
 class DevelopmentConfig(Config):
     DEBUG = True

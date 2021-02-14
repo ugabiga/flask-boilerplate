@@ -7,6 +7,8 @@ from typing import Optional
 from kafka import KafkaConsumer, OffsetAndMetadata, TopicPartition
 from kafka.consumer.fetcher import ConsumerRecord
 
+from core.messages.host_resolver import MessageHostResolver
+
 
 @dataclass
 class MessageConsumerDto:
@@ -28,22 +30,20 @@ class MessageConsumerDto:
 
 
 class MessageConsumer:
-    def __init__(self):
-        # noinspection PyTypeChecker
-        self.__consumer: KafkaConsumer = None
-
-    def init_app(self, env: str, topics=()) -> None:
-        self.__init_consumer(topics=topics)
-
-    def __init_consumer(self, topics=()) -> None:
-        self.__consumer = KafkaConsumer(
-            bootstrap_servers="app-kafka:9093",
+    def __init__(self, config: dict):
+        bootstrap_servers = MessageHostResolver.make_from_dict(
+            config
+        ).get_bootstrap_servers()
+        self.__consumer: KafkaConsumer = KafkaConsumer(
+            bootstrap_servers=bootstrap_servers,
             auto_offset_reset="earliest",
             enable_auto_commit=False,
-            group_id="test_group",
+            group_id=config["MESSAGE_CONSUMER_GROUP_ID"],
             value_deserializer=lambda x: json.loads(x.decode("utf-8")),
             consumer_timeout_ms=1000,
         )
+
+    def set_topics(self, topics=()) -> None:
         self.__consumer.unsubscribe()
         self.__consumer.subscribe(topics=topics)
 

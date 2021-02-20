@@ -2,7 +2,7 @@ import json
 
 from kafka import KafkaProducer
 
-from core.messages.host_resolver import MessageHostResolver
+from core.extensions.messages.host_resolver import MessageHostResolver
 
 
 class MessageProducer:

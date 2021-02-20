@@ -6,8 +6,8 @@ from flask import current_app
 from pydantic import ValidationError
 
 from app.extensions.database import sql
-from core.messages.consumer import MessageConsumer, MessageConsumerDto
-from core.messages.producer import MessageProducer
+from core.extensions.messages.consumer import MessageConsumer, MessageConsumerDto
+from core.extensions.messages.producer import MessageProducer
 from core.repositories.users import UserRepository
 from core.use_cases.users.update_user import UpdateUserDto, UpdateUserUseCase
 

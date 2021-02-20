@@ -1,7 +1,7 @@
 from typing import Optional
 
-from app.extensions.sql_client import SQLClient
 from core.entities.users import User as UserEntity
+from core.extensions import rdb
 from core.models.user import UserModel
 
 
@@ -10,17 +10,17 @@ class UserRepository:
         new_user = UserModel()
         new_user.nickname = nickname
 
-        user = SQLClient(new_user).create()
+        user = rdb.Query(new_user).create()
 
         return user.to_entity()
 
     def update_user(self, user_id: int, nickname: str):
-        SQLClient(UserModel).filter(UserModel.id == user_id).update(
+        rdb.Query(UserModel).filter(UserModel.id == user_id).update(
             {"nickname": nickname}
         )
 
     def get_user(self, user_id: int) -> Optional[UserEntity]:
-        user = SQLClient(UserModel).filter(UserModel.id == user_id).one_or_none()
+        user = rdb.Query(UserModel).filter(UserModel.id == user_id).one_or_none()
 
         if user is None:
             return None

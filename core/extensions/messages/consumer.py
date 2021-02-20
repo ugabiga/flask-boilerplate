@@ -7,7 +7,7 @@ from typing import Optional
 from kafka import KafkaConsumer, OffsetAndMetadata, TopicPartition
 from kafka.consumer.fetcher import ConsumerRecord
 
-from core.messages.host_resolver import MessageHostResolver
+from core.extensions.messages.host_resolver import MessageHostResolver
 
 
 @dataclass

@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify
 
-main = Blueprint("main", __name__)
+root = Blueprint("root", __name__)
 
 
-@main.route("/")
+@root.route("/")
 def index():
     return jsonify({"status": True})

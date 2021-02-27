@@ -1,5 +1,4 @@
 import json
-from typing import Optional
 
 from kafka import KafkaProducer
 
@@ -11,12 +10,6 @@ class MessageProducer:
         self.__bootstrap_servers = MessageHostResolver.make_from_dict(
             config
         ).get_bootstrap_servers()
-        self.__producer: Optional[KafkaProducer] = None
-
-    def __connect(self):
-        if self.__producer is not None:
-            return
-
         self.__producer: KafkaProducer = KafkaProducer(
             bootstrap_servers=self.__bootstrap_servers,
             compression_type="gzip",
@@ -24,5 +17,4 @@ class MessageProducer:
         )
 
     def send(self, topic: str, value: dict):
-        self.__connect()
         self.__producer.send(topic=topic, value=value)

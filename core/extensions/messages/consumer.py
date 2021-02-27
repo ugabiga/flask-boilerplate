@@ -38,33 +38,8 @@ class MessageConsumer:
         self.__bootstrap_servers = MessageHostResolver.make_from_dict(
             config
         ).get_bootstrap_servers()
+
         self.__group_id = config["MESSAGE_CONSUMER_GROUP_ID"]
-        self.__consumer: Optional[KafkaConsumer] = None
-
-    def set_topics(self, topics=()) -> None:
-        self.__connect()
-        self.__consumer.unsubscribe()
-        self.__consumer.subscribe(topics=topics)
-
-    def get_message(self) -> Optional[MessageConsumerDto]:
-        self.__connect()
-        for message in self.__consumer:
-            if isinstance(message, ConsumerRecord):
-                return MessageConsumerDto.from_kafka_message(message)
-            return message
-
-        return None
-
-    def commit_message(self, dto: MessageConsumerDto) -> None:
-        self.__connect()
-        topic_partition = TopicPartition(dto.topic, dto.partition)
-        offsets = {topic_partition: OffsetAndMetadata(dto.offset + 1, None)}
-        self.__consumer.commit(offsets)
-
-    def __connect(self):
-        if self.__consumer is not None:
-            return
-
         self.__consumer: KafkaConsumer = KafkaConsumer(
             bootstrap_servers=self.__bootstrap_servers,
             auto_offset_reset="earliest",
@@ -73,3 +48,20 @@ class MessageConsumer:
             value_deserializer=lambda x: json.loads(x.decode("utf-8")),
             consumer_timeout_ms=1000,
         )
+
+    def set_topics(self, topics=()) -> None:
+        self.__consumer.unsubscribe()
+        self.__consumer.subscribe(topics=topics)
+
+    def get_message(self) -> Optional[MessageConsumerDto]:
+        for message in self.__consumer:
+            if isinstance(message, ConsumerRecord):
+                return MessageConsumerDto.from_kafka_message(message)
+            return message
+
+        return None
+
+    def commit_message(self, dto: MessageConsumerDto) -> None:
+        topic_partition = TopicPartition(dto.topic, dto.partition)
+        offsets = {topic_partition: OffsetAndMetadata(dto.offset + 1, None)}
+        self.__consumer.commit(offsets)

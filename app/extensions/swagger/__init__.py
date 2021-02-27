@@ -29,7 +29,7 @@ def get_swagger_config() -> Dict[str, Dict[str, Any]]:
             "swagger": "2.0",
             "info": {
                 "title": __api_name__,
-                "description": "Glam group server",
+                "description": "",
                 "version": __version__,
                 "contact": {
                     "responsibleOrganization": "ME",

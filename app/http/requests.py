@@ -4,10 +4,10 @@ from typing import Callable, Type
 from flask import abort, jsonify, make_response, request
 from pydantic import ValidationError
 
-from core.use_cases.authentications.create_token import CreateTokenDto
+from core.dtos.base import BaseDto
 
 
-def validate_request(dto_cls: Type[CreateTokenDto]) -> Callable:
+def validate_request(dto_cls: Type[BaseDto]) -> Callable:
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):

@@ -1,7 +1,8 @@
 from flasgger import swag_from
-from flask import jsonify, request
+from flask import jsonify
 
-from app.http.api import api
+from app.extensions.swagger.builder import doc_build
+from app.http.api import api, validate_request
 from app.http.api.v1 import version_prefix
 from app.http.responses import build_response
 from app.http.responses.users import UserSchema
@@ -10,27 +11,27 @@ from core.use_cases.users.create_users import CreateUserDto, CreateUserUseCase
 route_name = "users"
 
 
-@swag_from("")
 @api.route(f"{version_prefix}/{route_name}")
-def index():
+def index_user():
     return jsonify({"result": True})
 
 
-@swag_from("")
 @api.route(f"{version_prefix}/{route_name}", methods=["POST"])
-def create():
-    dto = CreateUserDto.validate_from_dict(request.get_json())
+@swag_from(doc_build("User", "user", "User"))
+@validate_request(CreateUserDto)
+def create_user(dto: CreateUserDto):
+    """
+    Create User
+    """
     output = CreateUserUseCase().execute(dto)
     return build_response(output, UserSchema)
 
 
-@swag_from("")
 @api.route(f"{version_prefix}/{route_name}", methods=["PUT"])
-def update():
+def update_user():
     return jsonify({"result": True})
 
 
-@swag_from("")
 @api.route(f"{version_prefix}/{route_name}", methods=["DELETE"])
-def delete():
+def delete_user():
     return jsonify({"result": True})

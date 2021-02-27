@@ -4,6 +4,7 @@ from flasgger import swag_from
 from flask import jsonify, request
 from flask.wrappers import Response
 
+from app.extensions.swagger.builder import doc_build
 from app.http.api import api
 from app.http.api.v1 import version_prefix
 from app.http.responses import build_response
@@ -14,9 +15,12 @@ from core.use_cases.tasks.get_tasks import GetTasksByUserUseCase, GetUserTaskDto
 route_name = "tasks"
 
 
-@swag_from("./task_index.yml")
 @api.route(f"{version_prefix}/{route_name}")
-def read_tasks() -> Tuple[Response, int]:
+@swag_from(doc_build("Task", "tasks", "Task", True))
+def index_task() -> Tuple[Response, int]:
+    """
+    Index Task
+    """
     request_dict: dict = request.args.to_dict()
     request_dict.update({"user_id": 1})
     dto = GetUserTaskDto.validate_from_dict(request_dict)
@@ -25,7 +29,7 @@ def read_tasks() -> Tuple[Response, int]:
 
 
 @api.route(f"{version_prefix}/{route_name}/<int:task_id>")
-def read_one_task(task_id):
+def index_a_task(task_id):
     return jsonify({"result": True})
 
 

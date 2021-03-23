@@ -12,4 +12,4 @@ def test_build_response(app: Flask) -> None:
     response, status_code = build_response(output, TaskSchema)
 
     assert status_code == 200
-    assert response.json["data"] == task.to_dict()
+    assert response.json["data"] == task.asdict()

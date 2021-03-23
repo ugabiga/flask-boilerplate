@@ -1,7 +1,9 @@
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 
 
 @dataclass
 class BaseDataclass:
-    def to_dict(self):
-        return asdict(self)
+    _hidden_fields = []
+
+    def asdict(self):
+        return {k: v for k, v in self.__dict__.items() if k not in self._hidden_fields}

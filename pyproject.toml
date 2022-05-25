@@ -27,7 +27,7 @@ Marshmallow = "^3.5.0"
 inject = "^4.1.2"
 pytest-snail = "^0.1.0"
 pydantic = "^1.6.1"
-pyjwt = "^1.7.1"
+pyjwt = "^2.4.0"
 kafka-python = "^2.0.2"
 psycopg2 = "^2.8.6"
 
